@@ -5,9 +5,9 @@ import java.util.Map.Entry;
 public class Administrator extends Staff {
 
 	private static Administrator admin = null;
-	private ArrayList<Candidate_Employee> candidates = new ArrayList<Candidate_Employee>();
-	private HashMap<Candidate_Employee, String> proposals = new HashMap<Candidate_Employee, String>();
-	private HashMap<Entry<Candidate_Employee, String>, String> trainees = new HashMap<Entry<Candidate_Employee, String>, String>();
+	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
+	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
+	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
 	private Administrator(){
 		name="Brad Pitt";
 		ID=2;
@@ -22,17 +22,17 @@ public class Administrator extends Staff {
 	}
 	
 	public void requestDecision(int indexOfCandidate, int indexOfRequirement) {
-		proposals.put(candidates.get(indexOfCandidate), Teaching_Requirements.getInstance().getListOfRequirements().get(indexOfRequirement));
+		proposals.put(candidates.get(indexOfCandidate), TeachingRequirements.getInstance().getListOfRequirements().get(indexOfRequirement));
 	}
 	
-	public void addCandidate(Candidate_Employee candidate) {
+	public void addCandidate(CandidateEmployee candidate) {
 		candidates.add(candidate);
 	}
-	public void addTrainee(Entry<Candidate_Employee, String> entry, String comment) {
+	public void addTrainee(Entry<CandidateEmployee, String> entry, String comment) {
 		trainees.put(entry, comment);
 	}
 
-	public HashMap<Candidate_Employee, String> getProposals() {
+	public HashMap<CandidateEmployee, String> getProposals() {
 		return proposals;
 	}
 	
