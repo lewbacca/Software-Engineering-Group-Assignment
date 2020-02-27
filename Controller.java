@@ -65,7 +65,6 @@ public class Controller {
 			sc.nextLine();
 			if(input==0) {
 				validChoice=true;
-				exit();
 			}else if(input==1) {
 				validChoice=true;
 				createProposals();
@@ -74,26 +73,27 @@ public class Controller {
 				assignTraining();
 			}
 		}
+		sc.close();
 		
 	}
 	public void createProposals() {
-		view.welcomeAdministrator();
+		view.welcomeProposalsAdministrator();
 		Scanner sc= new Scanner(System.in);
 		view.showRequirements();
-		view.showCandidateEmlpoyees();
+		view.showCandidateEmployees();
 		boolean addedEnough=false;
 		while(!addedEnough) {
 			int input;
 			boolean validChoice=false;
-		    String requirement;
-		    CandidateEmployee candidate;
+		    String requirement=null;
+		    CandidateEmployee candidate=null;
 		    view.chooseRequirement();
 			    while(!validChoice) {
 			    	input = sc.nextInt();
 			    	sc.nextLine();
 						if(input<TeachingRequirements.getInstance().getListOfRequirements().size() && input>-1) {
 							validChoice=true;
-							String requirement=TeachingRequirements.getInstance().getListOfRequirements().get(input);
+							requirement=TeachingRequirements.getInstance().getListOfRequirements().get(input);
 						}else {
 							view.invalidChoice();
 						}
@@ -113,7 +113,7 @@ public class Controller {
 			    Administrator.getInstance().requestDecision(candidate, requirement);
 			    validChoice=false;
 			    while(!validChoice) {
-				    view.addAnotherOrGoBack();
+				    view.addOrExitAdministrator();
 				    input=sc.nextInt();
 				    sc.nextLine();
 				    
@@ -121,7 +121,6 @@ public class Controller {
 				    	validChoice=true;
 				    	addedEnough=true;
 				    }else if(input==1) {
-				    	addedEnough=false;
 				    	validChoice=true;
 				    }else {
 				    	view.invalidChoice();
