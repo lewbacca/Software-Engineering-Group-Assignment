@@ -1,6 +1,6 @@
 
 public class ClassDirector extends Staff{
-	private String password;
+
 	public ClassDirector(String name, int ID, String password) {
 		title="Class Director";
 		this.name=name;
@@ -11,4 +11,7 @@ public class ClassDirector extends Staff{
 	public void addRequirement(String requirement) {
 		TeachingRequirements.getInstance().addRequirements(requirement);
 	}
+
+	
+	
 }

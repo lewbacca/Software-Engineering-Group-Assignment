@@ -9,9 +9,10 @@ public class CandidateEmployee extends Staff {
 	  this.title=title;
 	  Administrator.getInstance().addCandidate(this);
   }
-  
-  public void addSkill(String skill) {
-	skills.add(skill);  
+
+  public ArrayList<String> getSkills() {
+	return skills;
   }
+  
   
 }
