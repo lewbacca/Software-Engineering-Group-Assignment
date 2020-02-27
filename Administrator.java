@@ -7,8 +7,8 @@ public class Administrator extends Staff {
 	private static Administrator admin = null;
 	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
 	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
-	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
-	private String password;
+	private HashMap<Entry<CandidateEmployee, String>, String> trainees = null;
+
 	private Administrator(){
 		name="Brad Pitt";
 		ID=2;
@@ -23,10 +23,13 @@ public class Administrator extends Staff {
 		return admin;
 	}
 	
-	public void requestDecision(int indexOfCandidate, int indexOfRequirement) {
-		proposals.put(candidates.get(indexOfCandidate), TeachingRequirements.getInstance().getListOfRequirements().get(indexOfRequirement));
+	public void requestDecision(CandidateEmployee candidate, String requirement) {
+		proposals.put(candidate, requirement);
 	}
-	
+
+	public void checkForTrainees() {
+		trainees=Decision.getInstance().removeRejects();
+	}
 	public void addCandidate(CandidateEmployee candidate) {
 		candidates.add(candidate);
 	}
@@ -37,5 +40,15 @@ public class Administrator extends Staff {
 	public HashMap<CandidateEmployee, String> getProposals() {
 		return proposals;
 	}
+
+	public ArrayList<CandidateEmployee> getCandidates() {
+		return candidates;
+	}
+
+	public HashMap<Entry<CandidateEmployee, String>, String> getTrainees() {
+		return trainees;
+	}
+	
+
 	
 }

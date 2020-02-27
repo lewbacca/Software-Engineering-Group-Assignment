@@ -2,7 +2,7 @@
 public class PTTDirector extends Staff {
 	
 	private static PTTDirector pttDirector = null;
-	private String password;
+	
 	private PTTDirector(){
 		name="George Clooney";
 		ID=1;
@@ -16,4 +16,7 @@ public class PTTDirector extends Staff {
 		}
 		return pttDirector;
 	}
+
+	
+	
 }

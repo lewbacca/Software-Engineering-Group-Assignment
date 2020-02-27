@@ -31,4 +31,15 @@ public class Decision {
 		approvals.put(key, approved);
 	}
 	
+	public HashMap<Entry<CandidateEmployee, String>, String> removeRejects() {
+		HashMap<Entry<CandidateEmployee, String>, String> winners = new HashMap<Entry<CandidateEmployee, String>, String>();
+		Set<Entry<CandidateEmployee, String>> all= approvals.keySet();
+		for(Entry<CandidateEmployee, String> entry: all) {
+			if (approvals.get(entry)==true) {
+				winners.put(entry, null);
+			}
+		}
+		return winners;
+	}
+	
 }
