@@ -9,7 +9,7 @@ public class PTT_Director extends Staff {
 		title="PTT Director";
 	}
 	
-	public static PTT_Director getinstance() {
+	public static PTT_Director getInstance() {
 		if (pttDirector == null) {
 			pttDirector = new PTT_Director();
 		}

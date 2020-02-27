@@ -1,18 +1,20 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Administrator extends Staff {
 
 	private static Administrator admin = null;
 	private ArrayList<Candidate_Employee> candidates = new ArrayList<Candidate_Employee>();
-	private Hashtable<Candidate_Employee, String> proposals = new Hashtable<Candidate_Employee, String>();
+	private HashMap<Candidate_Employee, String> proposals = new HashMap<Candidate_Employee, String>();
+	private HashMap<Entry<Candidate_Employee, String>, String> trainees = new HashMap<Entry<Candidate_Employee, String>, String>();
 	private Administrator(){
 		name="Brad Pitt";
 		ID=2;
 		title="Administrator";
 	}
 	
-	public static Administrator getinstance() {
+	public static Administrator getInstance() {
 		if (admin == null) {
 			admin = new Administrator();
 		}
@@ -26,8 +28,11 @@ public class Administrator extends Staff {
 	public void addCandidate(Candidate_Employee candidate) {
 		candidates.add(candidate);
 	}
+	public void addTrainee(Entry<Candidate_Employee, String> entry, String comment) {
+		trainees.put(entry, comment);
+	}
 
-	public Hashtable<Candidate_Employee, String> getProposals() {
+	public HashMap<Candidate_Employee, String> getProposals() {
 		return proposals;
 	}
 	

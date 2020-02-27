@@ -7,7 +7,7 @@ public class Candidate_Employee extends Staff {
 	  this.name=name;
 	  this.ID=ID;
 	  this.title=title;
-	  Administrator.getinstance().addCandidate(this);
+	  Administrator.getInstance().addCandidate(this);
   }
   
   public void addSkill(String skill) {
