@@ -8,10 +8,12 @@ public class Administrator extends Staff {
 	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
 	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
 	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
+	private String password;
 	private Administrator(){
 		name="Brad Pitt";
 		ID=2;
 		title="Administrator";
+		password="iamadministrator";
 	}
 	
 	public static Administrator getInstance() {
