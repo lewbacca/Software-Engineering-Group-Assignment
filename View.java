@@ -77,7 +77,7 @@ public class View {
 	}
 	
 	public void chooseCandidate() {
-		System.out.print("Candidate: ");
+		System.out.print("Candidate ID: ");
 	}
 	public void addOrExitAdministrator() {
 		System.out.print("0.EXIT, 1.Add another, 2.Initial Menu: ");
@@ -97,6 +97,25 @@ public class View {
 			System.out.println(i+"\t "+candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t"+skills.toString());
 			i++;
 		}
+	}
+	public void makeComment() {
+		System.out.print("Training requests for this Candidate: ");
+	}
+	//PTT Director Menu
+	public void welcomePTTDirector() {
+		System.out.println("Here you can approve Teaching Requests");
+	}
+	public void showApprovals() {
+		int i=0;
+		System.out.println("No.\t ID\t Name\t Teaching Request\t");
+		for (Entry<CandidateEmployee, String> approval:Decision.getInstance().getApprovals().keySet()) {
+			CandidateEmployee candidate=approval.getKey();
+			System.out.println(i+"\t"+candidate.getID()+"\t"+candidate.getName()+"\t"+candidate.getID()+"\t"+approval.getValue());
+			i++;
+		}
+	}
+	public void addOrExitPTTDirector() {
+		System.out.println("0.EXIT, 1.Handle another Request: ");
 	}
 	
 }
