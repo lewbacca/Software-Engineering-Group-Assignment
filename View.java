@@ -41,7 +41,7 @@ public class View {
 	}
 	
 	//Administrator menu
-	public void initialChoiceAdministor() {
+	public void initialChoiceAdministrator() {
 		System.out.println("1. Create Proposals\n2.Assign Training");
 	}
 	public void welcomeProposalsAdministrator() {
@@ -72,7 +72,7 @@ public class View {
 			i++;
 		}
 	}
-	public void chooseRequriement() {
+	public void chooseRequirement() {
 		System.out.print("Requirement: ");
 	}
 	
