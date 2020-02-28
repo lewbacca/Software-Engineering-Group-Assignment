@@ -10,6 +10,7 @@ public class Model {
 		classDirector1=new ClassDirector("Robert DeNiro",3,"iamclassdirector1");
 		classDirector2=new ClassDirector("Idris Elba",4,"iamclassdirector2");
 		admin=Administrator.getInstance();
+		staff=new ArrayList<Staff>();
 		staff.add(pttDirector);
 		staff.add(admin);
 		staff.add(classDirector1);	

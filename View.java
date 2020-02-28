@@ -13,7 +13,8 @@ public class View {
 		System.out.print("ID: ");
 	}
 	public void loginPassword() {
-		System.out.println("PASSWORD: ");
+		System.out.print("PASSWORD: ");
+		
 	}
 	
 	public void invalidCredentials() {
@@ -22,7 +23,7 @@ public class View {
 	
 	
 	public void welcome(Staff user) {
-		System.out.println("===========WELCOME===========");
+		System.out.println("\n===========WELCOME===========");
 		System.out.println("Welcome "+user.getName());
 	}
 	
@@ -42,7 +43,7 @@ public class View {
 	
 	//Administrator menu
 	public void initialChoiceAdministrator() {
-		System.out.println("1. Create Proposals\n2.Assign Training");
+		System.out.println("0. EXIT\n1. Create Proposals\n2. Assign Training");
 	}
 	public void welcomeProposalsAdministrator() {
 		System.out.println("Here you can create Proposals for approval\n");
@@ -69,6 +70,7 @@ public class View {
 				skills.append(skill+" ");
 			}
 			System.out.println(i+":\t "+candidate.getID()+"\t"+candidate.getName()+"\t"+skills.toString());
+			skills.setLength(0);
 			i++;
 		}
 	}
@@ -116,6 +118,10 @@ public class View {
 	}
 	public void addOrExitPTTDirector() {
 		System.out.println("0.EXIT, 1.Handle another Request: ");
+	}
+	
+	public void emptyList() {
+		System.out.println("\nThis list is empty. Redirecting:");
 	}
 	
 }

@@ -14,5 +14,7 @@ public class CandidateEmployee extends Staff {
 	return skills;
   }
   
-  
+  public void addSkill(String skill) {
+	  skills.add(skill);
+  }
 }
