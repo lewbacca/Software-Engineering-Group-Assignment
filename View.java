@@ -80,7 +80,7 @@ public class View {
 		System.out.print("Candidate: ");
 	}
 	public void addOrExitAdministrator() {
-		System.out.print("0.EXIT, 1.Add another Proposal, 2.Initial Menu: ");
+		System.out.print("0.EXIT, 1.Add another, 2.Initial Menu: ");
 	}
 	
 	public void showCandidateTrainees() {

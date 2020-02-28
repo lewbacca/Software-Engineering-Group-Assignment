@@ -1,4 +1,6 @@
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Controller {
 	private Model model;
@@ -111,28 +113,68 @@ public class Controller {
 			    	}
 			    }
 			    Administrator.getInstance().requestDecision(candidate, requirement);
-			    validChoice=false;
-			    while(!validChoice) {
-				    view.addOrExitAdministrator();
-				    input=sc.nextInt();
-				    sc.nextLine();
-				    
-				    if(input==0) {
-				    	validChoice=true;
-				    	addedEnough=true;
-				    }else if(input==1) {
-				    	validChoice=true;
-				    }else {
-				    	view.invalidChoice();
-				    }
-			    }   
+			    addedEnough=addOrOtherOrExit();   
 		}
 		sc.close();
 	}
 	public void assignTraining() {
-		
+		view.showCandidateTrainees();
+		boolean addedEnough=false;
+		Scanner sc = new Scanner(System.in);
+		while(!addedEnough) {
+			view.chooseCandidate();
+			
+			int input = sc.nextInt();
+			boolean validChoice=false;
+			sc.nextLine();
+			while(!validChoice) {
+				Administrator.getInstance().checkForTrainees();
+				if(input<Administrator.getInstance().getTrainees().size() && input>-1) {
+					validChoice=true;
+					view.makeAComment();
+					String comment=sc.nextLine();
+					sc.nextLine();
+					CandidateEmployee candidate=null;
+					Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
+					Entry<CandidateEmployee, String>[] arrayOfEntries = entries.toArray(arrayOfEntries);
+					Administrator.getInstance().getTrainees().put(arrayOfEntries[input], comment);
+					
+				}else {
+					view.invalidChoice();
+				}
+			}
+		addedEnough=addOrOtherOrExit();
+		}
+		sc.close();
 	}
-	public void exit() {
+	public boolean addOrOtherOrExit(){
+		Scanner sc =new Scanner(System.in);
+		view.addOrExitAdministrator();
+		int input = sc.nextInt();
+		sc.nextLine();
+		boolean validChoice=false;
+	    while(!validChoice) {
+		    view.addOrExitAdministrator();
+		    input=sc.nextInt();
+		    sc.nextLine();
+		    
+		    if(input==0) {
+		    	sc.close();
+		    	return true;
+		    }else if(input==1) {
+		    	validChoice=true;
+		    }else if(input==2) {
+		    	sc.close();
+		    	administratorControl();
+		    }else {
+		    	view.invalidChoice();
+		    }
+	    }
+	    sc.close();
+	    return false;
+	}
+	
+	public void classDirectorControl() {
 		
 	}
 }

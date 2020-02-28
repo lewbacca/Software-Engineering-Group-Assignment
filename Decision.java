@@ -30,7 +30,10 @@ public class Decision {
 	public void setApprovals(Entry<CandidateEmployee, String> key, boolean approved) {
 		approvals.put(key, approved);
 	}
-	
+	/**
+	 * This method returns a HashMap of candidate employees and their skills as the key and the role they were approved for as the value
+	 * @return
+	 */
 	public HashMap<Entry<CandidateEmployee, String>, String> removeRejects() {
 		HashMap<Entry<CandidateEmployee, String>, String> winners = new HashMap<Entry<CandidateEmployee, String>, String>();
 		Set<Entry<CandidateEmployee, String>> all= approvals.keySet();
