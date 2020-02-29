@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class Administrator extends Staff {
 
@@ -28,7 +29,10 @@ public class Administrator extends Staff {
 	}
 
 	public void checkForTrainees() {
-		trainees=Decision.getInstance().removeRejects();
+		Set<Entry<CandidateEmployee, String>> approvals = Decision.getInstance().getApprovals().entrySet();
+		for(Entry<CandidateEmployee, String> entry: approvals) {
+			trainees.put(entry, "");
+		}
 	}
 	public void addCandidate(CandidateEmployee candidate) {
 		candidates.add(candidate);

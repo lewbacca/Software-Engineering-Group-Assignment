@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
@@ -58,19 +59,19 @@ public class Controller {
 	}
 
 	public void pttDirectorControl() {
-		Entry<CandidateEmployee, String>[] candidates =null;
-		Decision.getInstance().initialApprovals();
-		if(!Decision.getInstance().getApprovals().isEmpty()) {
+		Decision.getInstance().updateProposals();
+		if(!Decision.getInstance().getProposals().isEmpty()) {
 			view.welcome(user);
-			view.showApprovals();
+			
 			boolean approvedEnough=false;
-			Decision.getInstance().initialApprovals();
-			Set<Entry<CandidateEmployee, String>> proposals = Decision.getInstance().getApprovals().keySet();
-			for(Entry<CandidateEmployee, String> entry: proposals) {
-				System.out.println(entry.toString());
-			}
-			candidates =proposals.toArray(candidates);
+			
 			while(!approvedEnough) {
+				view.showProposals();
+				Set<CandidateEmployee> candidates = Decision.getInstance().getProposals().keySet();
+				ArrayList<Integer> ids = new ArrayList<Integer>();
+				for(CandidateEmployee c: candidates) {
+					ids.add(c.getID());
+				}
 				boolean validChoice=false;
 				int index=0;
 				int input;
@@ -78,7 +79,7 @@ public class Controller {
 					view.chooseCandidate();
 					index=sc.nextInt();
 					sc.nextLine();
-					if(index<proposals.size() && index>-1) {
+					if(ids.contains(index)) {
 						validChoice=true;	
 					}else {
 						view.invalidChoice();
@@ -91,15 +92,21 @@ public class Controller {
 					sc.nextLine();
 					if(input==0) {
 						validChoice=true;
-						Decision.getInstance().setApprovals(candidates[index], false);
+						Decision.getInstance().removeProposal(index);
 					}else if(input==1) {
 						validChoice=true;
-						Decision.getInstance().setApprovals(candidates[index], true);
+						Decision.getInstance().approve(index);
+						Decision.getInstance().updateApprovals();
 					}else if(input==2) {
 						validChoice=true;
 					}else {
 						view.invalidChoice();
 					}
+				}
+				Decision.getInstance().updateProposals();
+				if(Decision.getInstance().getProposals().isEmpty()) {
+					view.youreDone();
+					break;
 				}
 				validChoice=false;
 				view.addOrExitPTTDirector();
@@ -156,6 +163,10 @@ public class Controller {
 				boolean validChoice = false;
 				String requirement = null;
 				CandidateEmployee candidate = null;
+				ArrayList<Integer> ids=new ArrayList<Integer>();
+				for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
+					ids.add(c.getID());
+				}
 				view.chooseRequirement();
 				while (!validChoice) {
 					input = sc.nextInt();
@@ -168,13 +179,17 @@ public class Controller {
 					}
 				}
 				validChoice = false;
-				view.chooseCandidate();
 				while (!validChoice) {
+					view.chooseCandidate();
 					input = sc.nextInt();
 					sc.nextLine();
-					if (input < Administrator.getInstance().getCandidates().size() && input > -1) {
+					if (ids.contains(input)) {
 						validChoice = true;
-						candidate = Administrator.getInstance().getCandidates().get(input);
+						for(CandidateEmployee c: Administrator.getInstance().getCandidates()) {
+							if (c.getID()==input) {
+								candidate=c;
+							}
+						}
 					} else {
 						view.invalidChoice();
 					}
@@ -191,22 +206,30 @@ public class Controller {
 		Administrator.getInstance().checkForTrainees();
 		if (!Administrator.getInstance().getTrainees().isEmpty()) {
 			view.showCandidateTrainees();
+			ArrayList<Integer> ids = new ArrayList<Integer>();
+			Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
+			for(Entry<CandidateEmployee, String> entry: entries) {
+				ids.add(entry.getKey().getID());
+			}
 			boolean addedEnough = false;
 			while (!addedEnough) {
 				view.chooseCandidate();
 				int input = sc.nextInt();
-				boolean validChoice = false;
 				sc.nextLine();
-				Entry<CandidateEmployee, String>[] arrayOfEntries = null;
+				
+				boolean validChoice = false;
 				while (!validChoice) {
-					if (input < Administrator.getInstance().getTrainees().size() && input > -1) {
+					if (ids.contains(input)) {
 						validChoice = true;
 						view.makeComment();
 						String comment = sc.nextLine();
 						sc.nextLine();
-						Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
-						arrayOfEntries = entries.toArray(arrayOfEntries);
-						Administrator.getInstance().getTrainees().put(arrayOfEntries[input], comment);
+						for(Entry<CandidateEmployee, String> entry: entries) {
+							if(entry.getKey().getID()==input) {
+								Administrator.getInstance().getTrainees().put(entry, comment);
+							}
+						}
+						
 					} else {
 						view.invalidChoice();
 					}
