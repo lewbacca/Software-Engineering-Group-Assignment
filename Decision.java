@@ -14,7 +14,7 @@ public class Decision {
 		Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getProposals().entrySet();
 		
 		for(Entry<CandidateEmployee, String> entry: entries) {
-			approvals.put(entry, null);
+			approvals.put(entry, false);
 		}
 
 	}
@@ -39,7 +39,7 @@ public class Decision {
 		Set<Entry<CandidateEmployee, String>> all= approvals.keySet();
 		for(Entry<CandidateEmployee, String> entry: all) {
 			if (approvals.get(entry)==true) {
-				winners.put(entry, null);
+				winners.put(entry, "");
 			}
 		}
 		return winners;

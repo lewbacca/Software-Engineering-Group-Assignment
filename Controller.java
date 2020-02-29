@@ -31,7 +31,6 @@ public class Controller {
 					idMatch = true;
 					user = a;
 				}
-
 			}
 			if (user.getPassword().equals(password)) {
 				passMatch = true;
@@ -42,7 +41,6 @@ public class Controller {
 				view.invalidCredentials();
 			}
 		}
-
 		return user;
 	}
 
@@ -60,11 +58,62 @@ public class Controller {
 	}
 
 	public void pttDirectorControl() {
-		view.welcome(user);
-		view.showApprovals();
-
-		boolean validChoice = false;
-		System.out.println("You made it.");
+		Entry<CandidateEmployee, String>[] candidates=null;
+		if(!Decision.getInstance().getApprovals().isEmpty()) {
+			view.welcome(user);
+			view.showApprovals();
+			boolean approvedEnough=false;
+			Set<Entry<CandidateEmployee, String>> proposals = Decision.getInstance().getApprovals().keySet();
+			candidates =proposals.toArray(candidates);
+			while(!approvedEnough) {
+				boolean validChoice=false;
+				int index=0;
+				int input;
+				while(!validChoice) {
+					view.chooseCandidate();
+					index=sc.nextInt();
+					sc.nextLine();
+					if(index<proposals.size() && index>-1) {
+						validChoice=true;	
+					}else {
+						view.invalidChoice();
+					}
+				}
+				validChoice=false;
+				while(!validChoice) {
+					view.approvedOrNot();
+					input = sc.nextInt();
+					sc.nextLine();
+					if(input==0) {
+						validChoice=true;
+						Decision.getInstance().setApprovals(candidates[index], false);
+					}else if(input==1) {
+						validChoice=true;
+						Decision.getInstance().setApprovals(candidates[index], true);
+					}else if(input==2) {
+						validChoice=true;
+					}else {
+						view.invalidChoice();
+					}
+				}
+				validChoice=false;
+				view.addOrExitPTTDirector();
+				while(!validChoice) {
+					input = sc.nextInt();
+					sc.nextLine();
+					if(input==0) {
+						approvedEnough=true;
+						validChoice=true;
+					}else if(input==1) {
+						validChoice=true;
+					}else {
+						view.invalidChoice();
+					}
+				}
+			}
+		}else {
+			view.emptyList();
+		}
 	}
 
 	public void administratorControl() {
@@ -88,7 +137,6 @@ public class Controller {
 				}
 			}
 		}
-
 	}
 
 	public void createProposals() {
@@ -132,35 +180,28 @@ public class Controller {
 		} else {
 			view.emptyList();
 		}
-
 	}
 
 	public void assignTraining() {
 		Administrator.getInstance().checkForTrainees();
-
 		if (!Administrator.getInstance().getTrainees().isEmpty()) {
 			view.showCandidateTrainees();
-
 			boolean addedEnough = false;
 			while (!addedEnough) {
 				view.chooseCandidate();
-
 				int input = sc.nextInt();
 				boolean validChoice = false;
 				sc.nextLine();
 				Entry<CandidateEmployee, String>[] arrayOfEntries = null;
 				while (!validChoice) {
-
 					if (input < Administrator.getInstance().getTrainees().size() && input > -1) {
 						validChoice = true;
 						view.makeComment();
 						String comment = sc.nextLine();
 						sc.nextLine();
-						CandidateEmployee candidate = null;
 						Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
 						arrayOfEntries = entries.toArray(arrayOfEntries);
 						Administrator.getInstance().getTrainees().put(arrayOfEntries[input], comment);
-
 					} else {
 						view.invalidChoice();
 					}
@@ -168,10 +209,8 @@ public class Controller {
 				addedEnough = addOrOtherOrExit();
 			}
 		} else {
-			view.emptyList();
-			
+			view.emptyList();	
 		}
-
 	}
 
 	public boolean addOrOtherOrExit() {
@@ -188,17 +227,34 @@ public class Controller {
 			} else if (input == 2) {
 				wantsToExit=false;
 				return true;
-			
 			} else {
 				view.invalidChoice();
 			}
 		}
-
 		return false;
 	}
-
+	
 	public void classDirectorControl() {
-		System.out.println("You made it.");
-	}
-
+		view.welcomeClassDirector();
+		boolean addedEnough=false;
+		while(!addedEnough) {
+			view.addTeachingRequirements();
+			String input=sc.nextLine();
+			TeachingRequirements.getInstance().addRequirements(input);
+			boolean validChoice= false;
+			while(!validChoice) {
+				view.addOrExitClassDirector();
+				int choice=sc.nextInt();
+				sc.nextLine();
+				if(choice==0) {
+					validChoice=true;
+					addedEnough=true;
+				}else if(choice==1) {
+					validChoice=true;
+				}else {
+					view.invalidChoice();
+				}
+			}
+		}
+	}	
 }

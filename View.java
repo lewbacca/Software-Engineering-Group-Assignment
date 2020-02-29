@@ -117,9 +117,12 @@ public class View {
 		}
 	}
 	public void addOrExitPTTDirector() {
-		System.out.println("0.EXIT, 1.Handle another Request: ");
+		System.out.print("0.EXIT, 1.Handle another Request: ");
 	}
 	
+	public void approvedOrNot() {
+		System.out.print("0.Reject, 1.Approve, 2.Decide later: ");
+	}
 	public void emptyList() {
 		System.out.println("\nThis list is empty. Redirecting:");
 	}
