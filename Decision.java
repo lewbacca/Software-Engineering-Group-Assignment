@@ -9,14 +9,14 @@ public class Decision {
 	private static Decision decision = null;
 	
 	private Decision() {
-		
 		approvals = new HashMap<Entry<CandidateEmployee , String>, Boolean>();
+	}
+	
+	public void initialApprovals() {
 		Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getProposals().entrySet();
-		
 		for(Entry<CandidateEmployee, String> entry: entries) {
 			approvals.put(entry, false);
 		}
-
 	}
 	public static Decision getInstance() {
 		if (decision == null) {

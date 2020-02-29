@@ -58,12 +58,17 @@ public class Controller {
 	}
 
 	public void pttDirectorControl() {
-		Entry<CandidateEmployee, String>[] candidates=null;
+		Entry<CandidateEmployee, String>[] candidates =null;
+		Decision.getInstance().initialApprovals();
 		if(!Decision.getInstance().getApprovals().isEmpty()) {
 			view.welcome(user);
 			view.showApprovals();
 			boolean approvedEnough=false;
+			Decision.getInstance().initialApprovals();
 			Set<Entry<CandidateEmployee, String>> proposals = Decision.getInstance().getApprovals().keySet();
+			for(Entry<CandidateEmployee, String> entry: proposals) {
+				System.out.println(entry.toString());
+			}
 			candidates =proposals.toArray(candidates);
 			while(!approvedEnough) {
 				boolean validChoice=false;

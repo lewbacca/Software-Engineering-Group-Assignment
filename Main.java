@@ -19,9 +19,9 @@ public class Main {
 		TeachingRequirements.getInstance().addRequirements("java");
 		TeachingRequirements.getInstance().addRequirements("lava");
 		TeachingRequirements.getInstance().addRequirements("hubava");
-		Administrator.getInstance().requestDecision(bobi, "java");
-		Administrator.getInstance().requestDecision(mobi, "lava");
-		Administrator.getInstance().requestDecision(hobi, "hubava");
+		Administrator.getInstance().requestDecision(bobi,TeachingRequirements.getInstance().getListOfRequirements().get(0));
+		Administrator.getInstance().requestDecision(mobi,TeachingRequirements.getInstance().getListOfRequirements().get(1));
+		Administrator.getInstance().requestDecision(hobi,TeachingRequirements.getInstance().getListOfRequirements().get(2));
 		Decision.getInstance();
 		controller.userDeference();
 		
