@@ -7,7 +7,7 @@ public class Administrator extends Staff {
 	private static Administrator admin = null;
 	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
 	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
-	private HashMap<Entry<CandidateEmployee, String>, String> trainees = null;
+	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
 
 	private Administrator(){
 		name="Brad Pitt";
