@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
@@ -58,22 +61,19 @@ public class Controller {
 	}
 
 	public void pttDirectorControl() {
-		Entry<CandidateEmployee, String>[] candidates =null;
 		Decision.getInstance().initialApprovals();
 		if(!Decision.getInstance().getApprovals().isEmpty()) {
 			view.welcome(user);
 			view.showApprovals();
 			boolean approvedEnough=false;
-			Decision.getInstance().initialApprovals();
+		
 			Set<Entry<CandidateEmployee, String>> proposals = Decision.getInstance().getApprovals().keySet();
-			for(Entry<CandidateEmployee, String> entry: proposals) {
-				System.out.println(entry.toString());
-			}
-			candidates =proposals.toArray(candidates);
-			while(!approvedEnough) {
+				while(!approvedEnough) {
 				boolean validChoice=false;
+				Iterator value = proposals.iterator();
 				int index=0;
 				int input;
+				Entry<CandidateEmployee,String> theEntry = null;
 				while(!validChoice) {
 					view.chooseCandidate();
 					index=sc.nextInt();
@@ -84,14 +84,24 @@ public class Controller {
 						view.invalidChoice();
 					}
 				}
+				int i =0; 
+			        while (value.hasNext()) { 
+			            if(i==index){
+			                theEntry=value.next();
+			                break;
+			            }
+			            value.next();
+			            i++;
+			        }
+					
 				validChoice=false;
 				while(!validChoice) {
 					view.approvedOrNot();
 					input = sc.nextInt();
-					sc.nextLine();
+					sc.nextLine()
 					if(input==0) {
 						validChoice=true;
-						Decision.getInstance().setApprovals(candidates[index], false);
+						Decision.getInstance().setApprovals(Administrator.getInstance().getProposals().entrySet(getCandidate.getID()==ID), false);
 					}else if(input==1) {
 						validChoice=true;
 						Decision.getInstance().setApprovals(candidates[index], true);

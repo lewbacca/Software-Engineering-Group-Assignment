@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
-public class Administrator extends Staff {
+import java.io.Serializable;
+public class Administrator extends Staff  implements Serializable{
 
 	private static Administrator admin = null;
 	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
@@ -47,6 +47,9 @@ public class Administrator extends Staff {
 
 	public HashMap<Entry<CandidateEmployee, String>, String> getTrainees() {
 		return trainees;
+	}
+	 public Object readResolve() {
+	       return getInstance( );
 	}
 	
 

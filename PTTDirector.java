@@ -1,5 +1,5 @@
-
-public class PTTDirector extends Staff {
+import java.io.Serializable;
+public class PTTDirector extends Staff implements Serializable{
 	
 	private static PTTDirector pttDirector = null;
 	
@@ -16,7 +16,9 @@ public class PTTDirector extends Staff {
 		}
 		return pttDirector;
 	}
-
+	 public Object readResolve() {
+	       return getInstance( );
+	    }
 	
 	
 }

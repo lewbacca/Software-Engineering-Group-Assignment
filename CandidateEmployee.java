@@ -1,7 +1,11 @@
 import java.util.ArrayList;
-
-public class CandidateEmployee extends Staff {
-  private ArrayList<String> skills=new ArrayList<String>();
+import java.io.Serializable;
+public class CandidateEmployee extends Staff implements Serializable{
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private ArrayList<String> skills=new ArrayList<String>();
   
   public CandidateEmployee(String name, int ID, String title){
 	  this.name=name;
@@ -16,5 +20,8 @@ public class CandidateEmployee extends Staff {
   
   public void addSkill(String skill) {
 	  skills.add(skill);
+  }
+  public int getID() {
+	  return ID;
   }
 }

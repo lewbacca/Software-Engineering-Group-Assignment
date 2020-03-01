@@ -1,5 +1,5 @@
-
-public class ClassDirector extends Staff{
+import java.io.Serializable;
+public class ClassDirector extends Staff implements Serializable{
 
 	public ClassDirector(String name, int ID, String password) {
 		title="Class Director";
