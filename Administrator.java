@@ -1,15 +1,20 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.io.Serializable;
 import java.util.Set;
+public class Administrator extends Staff  implements Serializable{
 
-public class Administrator extends Staff {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static Administrator admin = null;
 	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
 	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
 	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
-
+	private String name,title,password;
+	protected int ID;
 	private Administrator(){
 		name="Brad Pitt";
 		ID=2;
@@ -52,7 +57,21 @@ public class Administrator extends Staff {
 	public HashMap<Entry<CandidateEmployee, String>, String> getTrainees() {
 		return trainees;
 	}
-	
+	 public Object readResolve() {
+	       return getInstance( );
+	}
+	public String getName() {
+		return name;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public int getID() {
+		return ID;
+	}
+	public String getPassword() {
+		return password;
+	}
 
 	
 }

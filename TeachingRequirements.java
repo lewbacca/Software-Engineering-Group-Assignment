@@ -1,17 +1,24 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TeachingRequirements {
-	private static TeachingRequirements teachingRequirements = null;
-	private ArrayList<String> listOfRequirements = new ArrayList<String>();
+public class TeachingRequirements implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//private static TeachingRequirements teachingRequirements = null;
+	private ArrayList<String> listOfRequirements;
 	
-	private TeachingRequirements() {}
-	
-	public static TeachingRequirements getInstance() {
-		if(teachingRequirements == null) {
-			teachingRequirements=new TeachingRequirements();
-		}
-		return teachingRequirements;
+	private TeachingRequirements() {
+		listOfRequirements = new ArrayList<String>();
 	}
+	
+//	public static TeachingRequirements getInstance() {
+//		if(teachingRequirements == null) {
+//			teachingRequirements=new TeachingRequirements();
+//		}
+//		return teachingRequirements;
+//	}
 	
 	public void addRequirements(String requirement) {
 		listOfRequirements.add(requirement);
@@ -28,5 +35,7 @@ public class TeachingRequirements {
 	public ArrayList<String> getListOfRequirements() {
 		return listOfRequirements;
 	}
-	
+//	 public Object readResolve() {
+//	       return getInstance();
+//	}
 }

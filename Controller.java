@@ -8,9 +8,10 @@ public class Controller {
 	private View view;
 	private Staff user;
 	private Scanner sc;
+	private TeachingRequirements teachingReuquirements;
 	private boolean wantsToExit;
 
-	public Controller(Model model) {
+	public Controller(Model model) throws ClassNotFoundException {
 		this.model = model;
 		view = new View(model);
 		sc = new Scanner(System.in);
@@ -54,6 +55,7 @@ public class Controller {
 		} else if (user instanceof Administrator) {
 			administratorControl();
 		}
+		model.update();
 		System.out.println("Scanner closed.");
 		sc.close();
 	}
@@ -263,6 +265,7 @@ public class Controller {
 	}
 	
 	public void classDirectorControl() {
+		view.welcome(user);
 		view.welcomeClassDirector();
 		boolean addedEnough=false;
 		while(!addedEnough) {

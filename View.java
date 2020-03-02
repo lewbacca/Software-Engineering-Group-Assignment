@@ -54,17 +54,18 @@ public class View {
 	public void showRequirements() {
 		System.out.println("These are the pending Teaching Requirements:");
 			int i=0;
-			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
-				System.out.println(i+": "+requirement);
-				i++;
-			}
+//			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
+//				System.out.println(i+": "+requirement);
+//				i++;
+//			}
+			for ()
 	}
 	public void showCandidateEmployees() {
 		System.out.println("These are the Candidate Employees: ");
 		int i=0;
 		StringBuilder skills=new StringBuilder();
 		
-		System.out.println("ID\t Name\t Skills");
+		System.out.println("ID\tName\tSkills");
 		for (CandidateEmployee candidate:model.getAdmin().getCandidates()) {
 			for (String skill:candidate.getSkills()) {
 				skills.append(skill+" ");
@@ -90,7 +91,7 @@ public class View {
 		
 		Set<Entry<CandidateEmployee,String>> traineesKey=Administrator.getInstance().getTrainees().keySet();
 		StringBuilder skills=new StringBuilder();
-		System.out.println("ID\t Name\t Approved For\t Skills");
+		System.out.println("ID\tName\tApproved For\tSkills");
 		for (Entry<CandidateEmployee,String> trainee:traineesKey){
 			CandidateEmployee candidate=trainee.getKey();
 			for (String skill:candidate.getSkills()) {

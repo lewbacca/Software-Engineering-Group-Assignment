@@ -1,27 +1,21 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 		Model model = new Model();
 		Controller controller = new Controller(model);
-		CandidateEmployee bobi = new CandidateEmployee("bobi", "jerkoff");
-		bobi.addSkill("wanking");
-		bobi.addSkill("shanking");
-		bobi.addSkill("spanking");
-		CandidateEmployee mobi = new CandidateEmployee("mobi", "jerkoff");
-		mobi.addSkill("banking");
-		mobi.addSkill("ranking");
-		mobi.addSkill("cranking");
-		CandidateEmployee hobi = new CandidateEmployee("hobi","jerkoff");
-		hobi.addSkill("spalunking");
-		hobi.addSkill("cooking");
-		hobi.addSkill("shitting");
-		TeachingRequirements.getInstance().addRequirements("java");
-		TeachingRequirements.getInstance().addRequirements("lava");
-		TeachingRequirements.getInstance().addRequirements("hubava");
-		Administrator.getInstance().requestDecision(bobi,TeachingRequirements.getInstance().getListOfRequirements().get(0));
-		Administrator.getInstance().requestDecision(mobi,TeachingRequirements.getInstance().getListOfRequirements().get(1));
-		Administrator.getInstance().requestDecision(hobi,TeachingRequirements.getInstance().getListOfRequirements().get(2));
+
+			
+			TeachingRequirements.getInstance().addRequirements("java");
+			TeachingRequirements.getInstance().addRequirements("lava");
+			TeachingRequirements.getInstance().addRequirements("hubava");
+//			Administrator.getInstance().requestDecision(model.getEmployee(1),TeachingRequirements.getInstance().getListOfRequirements().get(0));
+//			Administrator.getInstance().requestDecision(model.getEmployee(3),TeachingRequirements.getInstance().getListOfRequirements().get(1));
+//			Administrator.getInstance().requestDecision(model.getEmployee(4),TeachingRequirements.getInstance().getListOfRequirements().get(2));
 		Decision.getInstance();
 		controller.userDeference();		
 	}
