@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
@@ -10,9 +8,10 @@ public class Controller {
 	private View view;
 	private Staff user;
 	private Scanner sc;
+	private TeachingRequirements teachingReuquirements;
 	private boolean wantsToExit;
 
-	public Controller(Model model) {
+	public Controller(Model model) throws ClassNotFoundException {
 		this.model = model;
 		view = new View(model);
 		sc = new Scanner(System.in);
@@ -56,60 +55,60 @@ public class Controller {
 		} else if (user instanceof Administrator) {
 			administratorControl();
 		}
+		model.update();
 		System.out.println("Scanner closed.");
 		sc.close();
 	}
 
 	public void pttDirectorControl() {
-		Decision.getInstance().initialApprovals();
-		if(!Decision.getInstance().getApprovals().isEmpty()) {
+		Decision.getInstance().updateProposals();
+		if(!Decision.getInstance().getProposals().isEmpty()) {
 			view.welcome(user);
-			view.showApprovals();
+			
 			boolean approvedEnough=false;
-		
-			Set<Entry<CandidateEmployee, String>> proposals = Decision.getInstance().getApprovals().keySet();
-				while(!approvedEnough) {
+			
+			while(!approvedEnough) {
+				view.showProposals();
+				Set<CandidateEmployee> candidates = Decision.getInstance().getProposals().keySet();
+				ArrayList<Integer> ids = new ArrayList<Integer>();
+				for(CandidateEmployee c: candidates) {
+					ids.add(c.getID());
+				}
 				boolean validChoice=false;
-				Iterator value = proposals.iterator();
 				int index=0;
 				int input;
-				Entry<CandidateEmployee,String> theEntry = null;
 				while(!validChoice) {
 					view.chooseCandidate();
 					index=sc.nextInt();
 					sc.nextLine();
-					if(index<proposals.size() && index>-1) {
+					if(ids.contains(index)) {
 						validChoice=true;	
 					}else {
 						view.invalidChoice();
 					}
 				}
-				int i =0; 
-			        while (value.hasNext()) { 
-			            if(i==index){
-			                theEntry=value.next();
-			                break;
-			            }
-			            value.next();
-			            i++;
-			        }
-					
 				validChoice=false;
 				while(!validChoice) {
 					view.approvedOrNot();
 					input = sc.nextInt();
-					sc.nextLine()
+					sc.nextLine();
 					if(input==0) {
 						validChoice=true;
-						Decision.getInstance().setApprovals(Administrator.getInstance().getProposals().entrySet(getCandidate.getID()==ID), false);
+						Decision.getInstance().removeProposal(index);
 					}else if(input==1) {
 						validChoice=true;
-						Decision.getInstance().setApprovals(candidates[index], true);
+						Decision.getInstance().approve(index);
+						Decision.getInstance().updateApprovals();
 					}else if(input==2) {
 						validChoice=true;
 					}else {
 						view.invalidChoice();
 					}
+				}
+				Decision.getInstance().updateProposals();
+				if(Decision.getInstance().getProposals().isEmpty()) {
+					view.youreDone();
+					break;
 				}
 				validChoice=false;
 				view.addOrExitPTTDirector();
@@ -166,6 +165,10 @@ public class Controller {
 				boolean validChoice = false;
 				String requirement = null;
 				CandidateEmployee candidate = null;
+				ArrayList<Integer> ids=new ArrayList<Integer>();
+				for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
+					ids.add(c.getID());
+				}
 				view.chooseRequirement();
 				while (!validChoice) {
 					input = sc.nextInt();
@@ -178,13 +181,17 @@ public class Controller {
 					}
 				}
 				validChoice = false;
-				view.chooseCandidate();
 				while (!validChoice) {
+					view.chooseCandidate();
 					input = sc.nextInt();
 					sc.nextLine();
-					if (input < Administrator.getInstance().getCandidates().size() && input > -1) {
+					if (ids.contains(input)) {
 						validChoice = true;
-						candidate = Administrator.getInstance().getCandidates().get(input);
+						for(CandidateEmployee c: Administrator.getInstance().getCandidates()) {
+							if (c.getID()==input) {
+								candidate=c;
+							}
+						}
 					} else {
 						view.invalidChoice();
 					}
@@ -201,22 +208,30 @@ public class Controller {
 		Administrator.getInstance().checkForTrainees();
 		if (!Administrator.getInstance().getTrainees().isEmpty()) {
 			view.showCandidateTrainees();
+			ArrayList<Integer> ids = new ArrayList<Integer>();
+			Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
+			for(Entry<CandidateEmployee, String> entry: entries) {
+				ids.add(entry.getKey().getID());
+			}
 			boolean addedEnough = false;
 			while (!addedEnough) {
 				view.chooseCandidate();
 				int input = sc.nextInt();
-				boolean validChoice = false;
 				sc.nextLine();
-				Entry<CandidateEmployee, String>[] arrayOfEntries = null;
+				
+				boolean validChoice = false;
 				while (!validChoice) {
-					if (input < Administrator.getInstance().getTrainees().size() && input > -1) {
+					if (ids.contains(input)) {
 						validChoice = true;
 						view.makeComment();
 						String comment = sc.nextLine();
 						sc.nextLine();
-						Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
-						arrayOfEntries = entries.toArray(arrayOfEntries);
-						Administrator.getInstance().getTrainees().put(arrayOfEntries[input], comment);
+						for(Entry<CandidateEmployee, String> entry: entries) {
+							if(entry.getKey().getID()==input) {
+								Administrator.getInstance().getTrainees().put(entry, comment);
+							}
+						}
+						
 					} else {
 						view.invalidChoice();
 					}
@@ -250,6 +265,7 @@ public class Controller {
 	}
 	
 	public void classDirectorControl() {
+		view.welcome(user);
 		view.welcomeClassDirector();
 		boolean addedEnough=false;
 		while(!addedEnough) {

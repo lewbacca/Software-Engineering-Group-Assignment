@@ -54,24 +54,25 @@ public class View {
 	public void showRequirements() {
 		System.out.println("These are the pending Teaching Requirements:");
 			int i=0;
-			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
-				System.out.println(i+": "+requirement);
-				i++;
-			}
+//			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
+//				System.out.println(i+": "+requirement);
+//				i++;
+//			}
+			for ()
 	}
 	public void showCandidateEmployees() {
 		System.out.println("These are the Candidate Employees: ");
 		int i=0;
 		StringBuilder skills=new StringBuilder();
 		
-		System.out.println("No.\t ID\t Name\t Skills");
+		System.out.println("ID\tName\tSkills");
 		for (CandidateEmployee candidate:model.getAdmin().getCandidates()) {
 			for (String skill:candidate.getSkills()) {
 				skills.append(skill+" ");
 			}
-			System.out.println(i+":\t "+candidate.getID()+"\t"+candidate.getName()+"\t"+skills.toString());
+			System.out.println(candidate.getID()+":"+"\t"+candidate.getName()+"\t"+skills.toString());
 			skills.setLength(0);
-			i++;
+			
 		}
 	}
 	public void chooseRequirement() {
@@ -87,17 +88,16 @@ public class View {
 	
 	public void showCandidateTrainees() {
 		System.out.println("These Candidates have been approved by PTT Director");
-		int i=0;
+		
 		Set<Entry<CandidateEmployee,String>> traineesKey=Administrator.getInstance().getTrainees().keySet();
 		StringBuilder skills=new StringBuilder();
-		System.out.println("No.\t ID\t Name\t Approved For\t Skills");
+		System.out.println("ID\tName\tApproved For\tSkills");
 		for (Entry<CandidateEmployee,String> trainee:traineesKey){
 			CandidateEmployee candidate=trainee.getKey();
 			for (String skill:candidate.getSkills()) {
 				skills.append(skill+" ");
 			}
-			System.out.println(i+"\t "+candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t"+skills.toString());
-			i++;
+			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t"+skills.toString());
 		}
 	}
 	public void makeComment() {
@@ -107,13 +107,12 @@ public class View {
 	public void welcomePTTDirector() {
 		System.out.println("Here you can approve Teaching Requests");
 	}
-	public void showApprovals() {
-		int i=0;
-		System.out.println("No.\t ID\t Name\t Teaching Request\t");
-		for (Entry<CandidateEmployee, String> approval:Decision.getInstance().getApprovals().keySet()) {
-			CandidateEmployee candidate=approval.getKey();
-			System.out.println(i+"\t"+candidate.getID()+"\t"+candidate.getName()+"\t"+candidate.getID()+"\t"+approval.getValue());
-			i++;
+	public void showProposals() {
+	
+		System.out.println("ID\t Name\t Teaching Request\t");
+		for (Entry<CandidateEmployee, String> proposal:Decision.getInstance().getProposals().entrySet()) {
+			CandidateEmployee candidate=proposal.getKey();
+			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+proposal.getValue());	
 		}
 	}
 	public void addOrExitPTTDirector() {
@@ -125,6 +124,10 @@ public class View {
 	}
 	public void emptyList() {
 		System.out.println("\nThis list is empty. Redirecting:");
+	}
+	
+	public void youreDone() {
+		System.out.println("Your tasks are complete. Turning off program.");
 	}
 	
 }
