@@ -4,13 +4,13 @@ public class CandidateEmployee implements Serializable{
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
- private ArrayList<String> skills=new ArrayList<String>();
-  private static int totalIDs = 0;
-  private int ID;
-  private boolean approved;
-  private String name;
-  private String title;
+		private static final long serialVersionUID = 1L;
+		private ArrayList<String> skills=new ArrayList<String>();
+		private static int totalIDs = 0;
+		private int ID;
+		private boolean approved;
+		private String name;
+		private String title;
   
 public CandidateEmployee(String name, String title){
 	  this.name=name;

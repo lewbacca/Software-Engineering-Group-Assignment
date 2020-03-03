@@ -1,26 +1,69 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 import java.io.Serializable;
 import java.util.Set;
-public class Administrator extends Staff  implements Serializable{
 
+public class Administrator extends Staff implements Serializable{
 	/**
 	 * 
 	 */
+
 	private static final long serialVersionUID = 1L;
 	private static Administrator admin = null;
-	private ArrayList<CandidateEmployee> candidates = new ArrayList<CandidateEmployee>();
-	private HashMap<CandidateEmployee, String> proposals = new HashMap<CandidateEmployee, String>();
-	private HashMap<Entry<CandidateEmployee, String>, String> trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
+	private ArrayList<CandidateEmployee> candidates;
+	////
+	private ArrayList<String> trying;
+	////
+	private HashMap<CandidateEmployee, String> proposals;
+	private HashMap<Entry<CandidateEmployee, String>, String> trainees;
 	private String name,title,password;
-	protected int ID;
+	private int ID;
 	private Administrator(){
+		super();
 		name="Brad Pitt";
 		ID=2;
 		title="Administrator";
 		password="iamadministrator";
+		candidates = new ArrayList<CandidateEmployee>();
+		proposals = new HashMap<CandidateEmployee, String>();
+		trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
+		////
+		trying  = new ArrayList<String>();
+		////
 	}
+	
+	////
+	public void addTrying(String s)
+	{
+		trying.add(s);
+	}
+	  
+	
+	public ArrayList<String> getTrying() {
+		return trying;
+	}
+	////
+	
+	public static synchronized void read(ObjectInputStream in){
+
+        try{
+        	
+        	admin = (Administrator)in.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (OptionalDataException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public static Administrator getInstance() {
 		if (admin == null) {
@@ -57,9 +100,10 @@ public class Administrator extends Staff  implements Serializable{
 	public HashMap<Entry<CandidateEmployee, String>, String> getTrainees() {
 		return trainees;
 	}
-	 public Object readResolve() {
-	       return getInstance( );
-	}
+	//@Override
+	/* protected Object readResolve() {
+	       return getInstance();
+	}*/
 	public String getName() {
 		return name;
 	}
@@ -69,9 +113,11 @@ public class Administrator extends Staff  implements Serializable{
 	public int getID() {
 		return ID;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 
 	
 }
