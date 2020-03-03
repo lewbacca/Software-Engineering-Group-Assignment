@@ -8,7 +8,7 @@ public class Controller {
 	private View view;
 	private Staff user;
 	private Scanner sc;
-	private TeachingRequirements teachingReuquirements;
+	private TeachingRequirements teachingRequirements;
 	private boolean wantsToExit;
 
 	public Controller(Model model) throws ClassNotFoundException {

@@ -20,16 +20,18 @@ public class Model {
 		staff=new ArrayList<Staff>();
 		employees=new ArrayList<CandidateEmployee>();
 		try {
-			FileInputStream is = new FileInputStream("data.txt");
+			FileInputStream is = new FileInputStream("data");
 			ObjectInputStream ois = new ObjectInputStream(is);
-			teachingRequirements=(TeachingRequirements) ois.readObject();
-			pttDirector=(PTTDirector) ois.readObject();
-			admin=(Administrator) ois.readObject();
+			
+			TeachingRequirements.read(ois);
+			PTTDirector.read(ois);
+			Administrator.read(ois);
+			Decision.read(ois);
 			classDirector1=(ClassDirector) ois.readObject();
 			classDirector2=(ClassDirector) ois.readObject();
 			classDirector3=(ClassDirector) ois.readObject();
 			classDirector4=(ClassDirector) ois.readObject();
-			employee1=(CandidateEmployee) ois.readObject();
+			/*employee1=(CandidateEmployee) ois.readObject();
 			employee2=(CandidateEmployee) ois.readObject();
 			employee3=(CandidateEmployee) ois.readObject();
 			employee4=(CandidateEmployee) ois.readObject();
@@ -42,39 +44,29 @@ public class Model {
 			employee11=(CandidateEmployee) ois.readObject();
 			employee12=(CandidateEmployee) ois.readObject();
 			employee13=(CandidateEmployee) ois.readObject();
-			employee14=(CandidateEmployee) ois.readObject();
-			System.out.println(teachingRequirements.getListOfRequirements());
+			employee14=(CandidateEmployee) ois.readObject();*/
+			/*For test purposes
+			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
+			System.out.println(PTTDirector.getInstance().getTrying().get(0));
+			System.out.println(Administrator.getInstance().getTrying().get(0));
+			System.out.println(Administrator.getInstance().getCandidates().get(0).getName());
+			*/
 			ois.close();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		addStaff();
-		addEmployees();
+		//addEmployees();
 	}
 	public void addStaff() {
-		staff.add(pttDirector);
-		staff.add(admin);
+		staff.add(PTTDirector.getInstance());
+		staff.add(Administrator.getInstance());
 		staff.add(classDirector1);	
 		staff.add(classDirector2);
 		staff.add(classDirector3);
 		staff.add(classDirector4);
 	}
-	public void addEmployees() {
-		employees.add(employee1);
-		employees.add(employee2);
-		employees.add(employee3);
-		employees.add(employee4);
-		employees.add(employee5);
-		employees.add(employee6);
-		employees.add(employee7);
-		employees.add(employee8);
-		employees.add(employee9);
-		employees.add(employee10);
-		employees.add(employee11);
-		employees.add(employee12);
-		employees.add(employee13);
-		employees.add(employee14);
-	}
+
 	public PTTDirector getPttDirector() {
 		return pttDirector;
 	}
@@ -95,30 +87,17 @@ public class Model {
 	}
 	public void update() {
 		try {
-			FileOutputStream f = new FileOutputStream(new File("data.txt"));
+			FileOutputStream f = new FileOutputStream(new File("data"));
 			ObjectOutputStream o = new ObjectOutputStream(f);
-			System.out.println(teachingRequirements.getListOfRequirements());
-			o.writeObject(teachingRequirements);
-			o.writeObject(pttDirector);
-			o.writeObject(admin);
+			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
+			o.writeObject(TeachingRequirements.getInstance());
+			o.writeObject(PTTDirector.getInstance());
+			o.writeObject(Administrator.getInstance());
+			o.writeObject(Decision.getInstance());
 			o.writeObject(classDirector1);
 			o.writeObject(classDirector2);
 			o.writeObject(classDirector3);
 			o.writeObject(classDirector4);
-			o.writeObject(employee1);
-			o.writeObject(employee2);
-			o.writeObject(employee3);
-			o.writeObject(employee4);
-			o.writeObject(employee5);
-			o.writeObject(employee6);
-			o.writeObject(employee7);
-			o.writeObject(employee8);
-			o.writeObject(employee9);
-			o.writeObject(employee10);
-			o.writeObject(employee11);
-			o.writeObject(employee12);
-			o.writeObject(employee13);
-			o.writeObject(employee14);
 			o.flush();
 			o.close();
 			f.close();

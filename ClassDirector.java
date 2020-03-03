@@ -4,10 +4,11 @@ public class ClassDirector extends Staff implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private String name,title,password;
 	protected int ID;
 	public ClassDirector(String name, int ID, String password) {
+		super();
 		title="Class Director";
 		this.name=name;
 		this.ID=ID;

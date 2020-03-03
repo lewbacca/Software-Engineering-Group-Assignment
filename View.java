@@ -27,6 +27,21 @@ public class View {
 		System.out.println("Welcome "+user.getName());
 	}
 	
+	//System Admin Menu
+	public void welcomeSystemAdmin() {
+		System.out.print("0.EXIT, 1.Add Staff, 2.Remove Staff 3.Alter Staff");
+	}
+	public void addStaff() {
+		System.out.print("0.Initial Menu, 1.Canditate Employee, 2.Class Director");
+	}
+	
+	public void removeStaff() {
+		System.out.print("0.Initial Menu, 1.Canditate Employee, 2.Class Director");
+	}
+	
+	
+	
+	
 	//Class Director Menu
 	public void welcomeClassDirector() {
 		System.out.println("Here you can add Teaching Requirements");
@@ -54,11 +69,10 @@ public class View {
 	public void showRequirements() {
 		System.out.println("These are the pending Teaching Requirements:");
 			int i=0;
-//			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
-//				System.out.println(i+": "+requirement);
-//				i++;
-//			}
-			for ()
+			for (String requirement:TeachingRequirements.getInstance().getListOfRequirements()) {
+				System.out.println(i+": "+requirement);
+				i++;
+			}
 	}
 	public void showCandidateEmployees() {
 		System.out.println("These are the Candidate Employees: ");
@@ -66,7 +80,7 @@ public class View {
 		StringBuilder skills=new StringBuilder();
 		
 		System.out.println("ID\tName\tSkills");
-		for (CandidateEmployee candidate:model.getAdmin().getCandidates()) {
+		for (CandidateEmployee candidate:Administrator.getInstance().getCandidates()) {
 			for (String skill:candidate.getSkills()) {
 				skills.append(skill+" ");
 			}
