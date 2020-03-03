@@ -20,7 +20,7 @@ public class Administrator extends Staff implements Serializable{
 	private ArrayList<String> trying;
 	////
 	private HashMap<CandidateEmployee, String> proposals;
-	private HashMap<Entry<CandidateEmployee, String>, String> trainees;
+//	private ArrayList<CandidateEmployee> trainees;
 	private String name,title,password;
 	private int ID;
 	private Administrator(){
@@ -31,7 +31,7 @@ public class Administrator extends Staff implements Serializable{
 		password="iamadministrator";
 		candidates = new ArrayList<CandidateEmployee>();
 		proposals = new HashMap<CandidateEmployee, String>();
-		trainees = new HashMap<Entry<CandidateEmployee, String>, String>();
+//		trainees = new ArrayList<CandidateEmployee>();
 		////
 		trying  = new ArrayList<String>();
 		////
@@ -76,18 +76,21 @@ public class Administrator extends Staff implements Serializable{
 		proposals.put(candidate, requirement);
 	}
 
-	public void checkForTrainees() {
-		Set<Entry<CandidateEmployee, String>> approvals = Decision.getInstance().getApprovals().entrySet();
-		for(Entry<CandidateEmployee, String> entry: approvals) {
-			trainees.put(entry, "");
-		}
-	}
+//	public void checkForTrainees() {
+//		Set<CandidateEmployee> approved = Decision.getInstance().getApprovals().keySet();
+//		for(CandidateEmployee key: approved) {
+//			trainees.add(key);
+//		}
+//		for(CandidateEmployee c: trainees) {
+//			System.out.println(c.toString());
+//		}
+//	}
 	public void addCandidate(CandidateEmployee candidate) {
 		candidates.add(candidate);
 	}
-	public void addTrainee(Entry<CandidateEmployee, String> entry, String comment) {
-		trainees.put(entry, comment);
-	}
+//	public void addTrainee(CandidateEmployee c) {
+//		trainees.add(c);
+//	}
 
 	public HashMap<CandidateEmployee, String> getProposals() {
 		return proposals;
@@ -97,9 +100,9 @@ public class Administrator extends Staff implements Serializable{
 		return candidates;
 	}
 
-	public HashMap<Entry<CandidateEmployee, String>, String> getTrainees() {
-		return trainees;
-	}
+//	public ArrayList<CandidateEmployee> getTrainees() {
+//		return trainees;
+//	}
 	//@Override
 	/* protected Object readResolve() {
 	       return getInstance();

@@ -205,13 +205,13 @@ public class Controller {
 	}
 
 	public void assignTraining() {
-		Administrator.getInstance().checkForTrainees();
-		if (!Administrator.getInstance().getTrainees().isEmpty()) {
+		System.out.println(Decision.getInstance().getApprovals().toString());
+		if (!Decision.getInstance().getApprovals().isEmpty()){
 			view.showCandidateTrainees();
 			ArrayList<Integer> ids = new ArrayList<Integer>();
-			Set<Entry<CandidateEmployee, String>> entries = Administrator.getInstance().getTrainees().keySet();
-			for(Entry<CandidateEmployee, String> entry: entries) {
-				ids.add(entry.getKey().getID());
+			Set<CandidateEmployee> trainees=Decision.getInstance().getApprovals().keySet();
+			for(CandidateEmployee c: trainees) {
+				ids.add(c.getID());
 			}
 			boolean addedEnough = false;
 			while (!addedEnough) {
@@ -226,9 +226,10 @@ public class Controller {
 						view.makeComment();
 						String comment = sc.nextLine();
 						sc.nextLine();
-						for(Entry<CandidateEmployee, String> entry: entries) {
-							if(entry.getKey().getID()==input) {
-								Administrator.getInstance().getTrainees().put(entry, comment);
+						for(CandidateEmployee c: trainees) {
+							if(c.getID()==input) {
+								c.setTraining(comment);
+								
 							}
 						}
 						
@@ -238,7 +239,7 @@ public class Controller {
 				}
 				addedEnough = addOrOtherOrExit();
 			}
-		} else {
+		}else{
 			view.emptyList();	
 		}
 	}

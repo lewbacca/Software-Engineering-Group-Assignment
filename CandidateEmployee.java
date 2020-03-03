@@ -11,13 +11,15 @@ public class CandidateEmployee implements Serializable{
 		private boolean approved;
 		private String name;
 		private String title;
-  
+		private String training;
+		
 public CandidateEmployee(String name, String title){
 	  this.name=name;
 	  this.ID=totalIDs+1;
 	  this.title=title;
 	  approved=false;
 	  totalIDs++;
+	  training="";
 	  Administrator.getInstance().addCandidate(this);
   }
 
@@ -50,7 +52,16 @@ public CandidateEmployee(String name, String title){
   public String toString() {
 	  return name+" "+ID+" "+title;
   }
-	public String getTitle() {
-		return title;
-	}
+  public String getTitle() {
+	  return title;
+  }
+
+  public String getTraining() {
+	  return training;
+  }
+
+  public void setTraining(String training) {
+	  this.training = training;
+  }
+	
 }

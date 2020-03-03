@@ -12,7 +12,7 @@ public class Main {
 		Model model = new Model();
 		Controller controller = new Controller(model);
 
-		//initialize();	
+//		initialize();	
 //			TeachingRequirements.getInstance().addRequirements("java");
 //			TeachingRequirements.getInstance().addRequirements("lava");
 //			TeachingRequirements.getInstance().addRequirements("hubava");
@@ -96,7 +96,7 @@ public class Main {
 		employee14.addSkill("Psychology");
 		employee14.addSkill("Life Coach");
 		try {
-			FileOutputStream f = new FileOutputStream(new File("data"));
+			FileOutputStream f = new FileOutputStream(new File("data.ser"));
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(teachingRequirements);
 			o.writeObject(pttDirector);

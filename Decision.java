@@ -51,11 +51,16 @@ public class Decision implements Serializable{
 		for(Entry<CandidateEmployee, String> entry: proposals.entrySet()) {
 			if (entry.getKey().isApproved()) {
 				approvals.put(entry.getKey(), entry.getValue());
-				
 			}
 		}
+		for(CandidateEmployee c: approvals.keySet()) {
+			System.out.println(c.toString());
+		}
+		
 	}
-	
+/**
+ * removes proposals that are already in the approvals hashmap form the proposals hashmap
+ */
 	public void updateProposals() {
 		for(Entry<CandidateEmployee, String> entry: approvals.entrySet()) {
 			if (entry.getKey().isApproved()) {
@@ -88,7 +93,7 @@ public class Decision implements Serializable{
 		
 	}
 	
-	 public Object readResolve() {
-	       return getInstance();
-	}
+//	 public Object readResolve() {
+//	       return getInstance();
+//	}
 }

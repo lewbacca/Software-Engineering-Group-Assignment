@@ -103,7 +103,7 @@ public class View {
 	public void showCandidateTrainees() {
 		System.out.println("These Candidates have been approved by PTT Director");
 		
-		Set<Entry<CandidateEmployee,String>> traineesKey=Administrator.getInstance().getTrainees().keySet();
+		Set<Entry<CandidateEmployee,String>> traineesKey=Decision.getInstance().getApprovals().entrySet();
 		StringBuilder skills=new StringBuilder();
 		System.out.println("ID\tName\tApproved For\tSkills");
 		for (Entry<CandidateEmployee,String> trainee:traineesKey){

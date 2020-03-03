@@ -20,7 +20,7 @@ public class Model {
 		staff=new ArrayList<Staff>();
 		employees=new ArrayList<CandidateEmployee>();
 		try {
-			FileInputStream is = new FileInputStream("data");
+			FileInputStream is = new FileInputStream("data.ser");
 			ObjectInputStream ois = new ObjectInputStream(is);
 			
 			TeachingRequirements.read(ois);
@@ -87,7 +87,7 @@ public class Model {
 	}
 	public void update() {
 		try {
-			FileOutputStream f = new FileOutputStream(new File("data"));
+			FileOutputStream f = new FileOutputStream(new File("data.ser"));
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
 			o.writeObject(TeachingRequirements.getInstance());
