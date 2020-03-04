@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
-/*
- * this is the controller part of the MVC architecture we have implemented
- */
+
 public class Controller {
 	private Model model;
 	private View view;
@@ -19,10 +17,7 @@ public class Controller {
 		typeQuit="";
 		
 	}
-/**
- * allows a user to log in
- * @return the Staff object that corresponds to the log in details
- */
+
 	public Staff login() {
 		boolean idMatch = false;
 		boolean passMatch = false;
@@ -52,157 +47,155 @@ public class Controller {
 		}
 		return user;
 	}
-/**
- * defers control to the appropriate method based on who the user logged in is
- */
+
 	public void userDeference() {
 		while(!typeQuit.equals("quit")) {
-			user = login();
-			wantsToLogout=false;
-			if (user instanceof PTTDirector) {
-				pttDirectorControl();
-			} else if (user instanceof ClassDirector) {
-				classDirectorControl();
-			} else if (user instanceof Administrator) {
-				administratorControl();
-	//		} else if (user instanceof SystemAdmin) {
-	//			sysAdminControl();
-	//		}
-			}
-			view.quitProgram();
-			typeQuit=sc.nextLine();
+		user = login();
+		wantsToLogout=false;
+		if (user instanceof PTTDirector) {
+			pttDirectorControl();
+		} else if (user instanceof ClassDirector) {
+			classDirectorControl();
+		} else if (user instanceof Administrator) {
+			administratorControl();
+		} else if (user instanceof SystemAdmin) {
+			sysAdminControl();
+		}
+		model.update();
+		view.quitProgram();
+		typeQuit=sc.nextLine();
 		}
 		
-		model.update();
+		
 		sc.close();
 	}
 	
-//	public void sysAdminControl()
-//	{
-//		while(!wantsToLogout){
-//		view.listStaff();
-//		for (Staff a : model.getStaff()) {
-//				System.out.println(a.getID()+" "+a.getName()+" "+a.getTitle());
-//			}
-//		view.listEmployee();;
-//		for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
-//				System.out.println(c.getID()+" "+c.getName()+" "+c.getTitle());
-//		}
-//		view.welcomeSystemAdmin();
-//		int input = sc.nextInt();
-//		sc.nextLine();
-//		if(input==1) {
-//			view.nameAdd();
-//			String name=sc.nextLine();
-//			view.passAdd();
-//			String password=sc.nextLine();
-//			int ID;
-//			
-//			view.chooseType();
-//			int input2 = sc.nextInt();
-//			sc.nextLine();			
-//			if(input2==1)
-//				{
-//				ID=Administrator.getInstance().getCandidates().size();
-//				CandidateEmployee ce=new CandidateEmployee(name,password);
-//				Administrator.getInstance().getCandidates().add(ce);
-//				}
-//			else if(input2==2)
-//				{
-//				ID=model.getStaff().size();
-//				ClassDirector st=new ClassDirector(name,ID,password);
-//				model.getCD().add(st);
-//				}
-//			
-//		}else if(input==2) {
-//			view.chooseType();
-//			int input2 = sc.nextInt();
-//			sc.nextLine();
-//			if(input2==1)
-//				{	
-//			view.removeStaff();
-//			int input3 = sc.nextInt();
-//			sc.nextLine();
-//			Administrator.getInstance().getCandidates().remove(input3-1);
-//				}
-//			if(input2==2)
-//				{
-//			view.removeStaff();
-//			int input3 = sc.nextInt();
-//			sc.nextLine();
-//			model.getCD().remove(input3);
-//				}
-//			
-//
-//		}else {wantsToLogout=true;}
-//		
-//		}
-//	}
-/**
- * this method controls the use of PTT director functionality, which allows you to see a candidate proposed by the administrator and approve, reject or decide later on this request
- */
+	public void sysAdminControl()
+	{
+		while(!wantsToLogout){
+		view.listStaff();
+		for (Staff a : model.getStaff()) {
+				System.out.println(a.getID()+" "+a.getName()+" "+a.getTitle());
+			}
+		view.listEmployee();;
+		for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
+				System.out.println(c.getID()+" "+c.getName()+" "+c.getTitle());
+		}
+		view.welcomeSystemAdmin();
+		int input = sc.nextInt();
+		sc.nextLine();
+		if(input==1) {
+			view.nameAdd();
+			String name=sc.nextLine();
+			view.passAdd();
+			String password=sc.nextLine();
+			int ID;
+			
+			view.chooseType();
+			int input2 = sc.nextInt();
+			sc.nextLine();			
+			if(input2==1)
+				{
+				ID=Administrator.getInstance().getCandidates().size();
+				CandidateEmployee ce=new CandidateEmployee(name,password);
+				}
+			else if(input2==2)
+				{
+				ID=model.getStaff().size();
+				ClassDirector st=new ClassDirector(name,ID,password);
+				model.getCD().add(st);
+				model.getStaff().add(st);
+				}
+			
+		}else if(input==2) {
+			view.chooseType();
+			int input2 = sc.nextInt();
+			sc.nextLine();
+			if(input2==1)
+				{	
+			view.removeStaff();
+			int input3 = sc.nextInt();
+			sc.nextLine();
+			Administrator.getInstance().getCandidates().remove(input3-1);
+				}
+			if(input2==2)
+				{
+			view.removeStaff();
+			int input3 = sc.nextInt();
+			sc.nextLine();
+			model.getCD().remove(input3);
+				}
+			
+
+		}else if(input==3) {
+			model.resetData();
+		}else {wantsToLogout=true;}
+		
+		}
+	}
+
 	public void pttDirectorControl() {
-		Decision.getInstance().updateProposals(); //removes approved requests from the proposals list and 
+		Decision.getInstance().updateProposals();
 		if(!Decision.getInstance().getProposals().isEmpty()) {
 			view.welcome(user);
 			boolean approvedEnough=false;
-			while(!approvedEnough) { //this loop allows us to keep approving requests
+			while(!approvedEnough) {
 				view.showProposals();
 				Set<CandidateEmployee> candidates = Decision.getInstance().getProposals().keySet();
-				ArrayList<Integer> ids = new ArrayList<Integer>(); //IDs are shown in the view and used to select candidates
+				ArrayList<Integer> ids = new ArrayList<Integer>();
 				for(CandidateEmployee c: candidates) {
-					ids.add(c.getID()); //we get the ID for every key in the proposals hash map
+					ids.add(c.getID());
 				}
 				boolean validChoice=false;
-				int index=0; //user's choice from the list presented to the
-				int input; //user's decision about the candidate
-				while(!validChoice) { //this loop makes sure an existing candidate is chosen
-					view.chooseCandidate(); 
+				int index=0;
+				int input;
+				while(!validChoice) {
+					view.chooseCandidate();
 					index=sc.nextInt();
 					sc.nextLine();
-					if(ids.contains(index)) { //appropriate choice - loops is exited 
+					if(ids.contains(index)) {
 						validChoice=true;	
 					}else {
 						view.invalidChoice();
 					}
 				}
-				validChoice=false; 
+				validChoice=false;
 				while(!validChoice) {
 					view.approvedOrNot();
 					input = sc.nextInt();
 					sc.nextLine();
-					if(input==0) { //the candidate is rejected 
-						validChoice=true; 
+					if(input==0) {
+						validChoice=true;
 						for(CandidateEmployee c: candidates) {
 							if(c.getID()==index) {
-								Administrator.getInstance().addCandidate(c); //they are added back to the the pool of candidates the administrator uses to make proposals
+								Administrator.getInstance().addCandidate(c);
 							}
 						}
-						Decision.getInstance().removeProposal(index); //the proposal is removed
-					}else if(input==1) { //the candidate has been approved
+						Decision.getInstance().removeProposal(index);
+					}else if(input==1) {
 						validChoice=true;
-						Decision.getInstance().approve(index); //sets the candidates boolean approved to true
-						Decision.getInstance().updateApprovals(); //takes all candidates are approved and the corresponding requirement and puts them in the approvals hashmap
-					}else if(input==2) { //this corresponds to "Decide later", so nothing is changed
+						Decision.getInstance().approve(index);
+						Decision.getInstance().updateApprovals();
+					}else if(input==2) {
 						validChoice=true;
 					}else {
 						view.invalidChoice();
 					}
 				}
 				Decision.getInstance().updateProposals();
-				if(Decision.getInstance().getProposals().isEmpty()) { //if the last proposal was processed, the program exits
+				if(Decision.getInstance().getProposals().isEmpty()) {
 					view.youreDone();
 					break;
 				}
 				validChoice=false;
-				view.addOrExitPTTDirector(); //exit or keep working menu
+				view.addOrExitPTTDirector();
 				while(!validChoice) {
 					input = sc.nextInt();
 					sc.nextLine();
-					if(input==0) { //allows the user to exit
+					if(input==0) {
 						approvedEnough=true;
 						validChoice=true;
-					}else if(input==1) { //allows the user to keep reviewing proposals
+					}else if(input==1) {
 						validChoice=true;
 					}else {
 						view.invalidChoice();
@@ -210,12 +203,10 @@ public class Controller {
 				}
 			}
 		}else {
-			view.emptyList(); //in case there are no proposals
+			view.emptyList();
 		}
 	}
-/**
- * over-arching method for administrator control which directs the user to a specific function of the administrator 
- */
+
 	public void administratorControl() {
 		view.welcome(user);
 		while(!wantsToLogout){
@@ -233,76 +224,71 @@ public class Controller {
 				} else if (input == 2) {
 					validChoice = true;
 					assignTraining();
-				}else {
-					view.invalidChoice();
 				}
 			}
 		}
 	}
-/**
- * this method allows the user to create proposals based on a choice of candidate employee and a requirement
- */
+
 	public void createProposals() {
 		view.welcomeProposalsAdministrator();
 		if (!TeachingRequirements.getInstance().getListOfRequirements().isEmpty()
-				&& !Administrator.getInstance().getCandidates().isEmpty()) { //we need both requirements and candidates to be able to make proposals
+				&& !Administrator.getInstance().getCandidates().isEmpty()) {
 			boolean addedEnough = false;
-			while (!addedEnough) { //allows for multiple proposals to be created
+			while (!addedEnough) {
 				view.showRequirements();
 				view.showCandidateEmployees();
-				int input; //choice of candidate
+				int input;
 				boolean validChoice = false;
-				String requirement = null; //choice of requirement
+				String requirement = null;
 				CandidateEmployee candidate = null;
-				ArrayList<Integer> ids=new ArrayList<Integer>(); //a list of the candidates IDs added in the for loop below 
+				ArrayList<Integer> ids=new ArrayList<Integer>();
 				for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
 					ids.add(c.getID());
 				}
 				view.chooseRequirement();
-				while (!validChoice) { //checks for an appropriate choice of requirement
+				while (!validChoice) {
 					input = sc.nextInt();
 					sc.nextLine();
 					if (input < TeachingRequirements.getInstance().getListOfRequirements().size() && input > -1) {
 						validChoice = true;
-						requirement = TeachingRequirements.getInstance().getListOfRequirements().get(input); //saves the value of the choice
+						requirement = TeachingRequirements.getInstance().getListOfRequirements().get(input);
 					} else {
 						view.invalidChoice();
 					}
 				}
 				validChoice = false;
-				while (!validChoice) { //checks for an appropriate choice of candidate
+				while (!validChoice) {
 					view.chooseCandidate();
 					input = sc.nextInt();
 					sc.nextLine();
-					if (ids.contains(input)) { 
+					if (ids.contains(input)) {
 						validChoice = true;
 						for(CandidateEmployee c: Administrator.getInstance().getCandidates()) {
 							if (c.getID()==input) {
-								candidate=c; //we get the candidate object by searching for their ID in the list of candidates, based on the user's input 
+								candidate=c;
 							}
 						}
-						Administrator.getInstance().getCandidates().remove(candidate); //assures they cannot be chosen in a proposal with another requirement (if this proposal is rejected, they will be added back in) 
+						Administrator.getInstance().getCandidates().remove(candidate);
 					} else {
-						view.invalidChoice(); 
+						view.invalidChoice();
 					}
 				}
-				Administrator.getInstance().requestDecision(candidate, requirement); //this effectively creates an entry in the proposals list for this candidate and this requirement
-				addedEnough = addOrOtherOrExit(); 
+				Administrator.getInstance().requestDecision(candidate, requirement);
+				addedEnough = addOrOtherOrExit();
 			}
 		} else {
 			view.emptyList();
 		}
 	}
-/**
- * this method allows the user to assign training in the form of a comment to approved proposals, the comment is stored with the candidate
- */
+
 	public void assignTraining() {
+		System.out.println(Decision.getInstance().getApprovals().toString());
 		if (!Decision.getInstance().getApprovals().isEmpty()){
 			
-			ArrayList<Integer> ids = new ArrayList<Integer>(); 
+			ArrayList<Integer> ids = new ArrayList<Integer>();
 			Set<CandidateEmployee> trainees=Decision.getInstance().getApprovals().keySet();
 			for(CandidateEmployee c: trainees) {
-				ids.add(c.getID()); //storing candidates IDs in a list
+				ids.add(c.getID());
 			}
 			boolean addedEnough = false;
 			while (!addedEnough) {
@@ -319,7 +305,7 @@ public class Controller {
 						String comment = sc.nextLine();
 						for(CandidateEmployee c: trainees) {
 							if(c.getID()==input) {
-								c.setTraining(comment); //if the input matches the ID we set the comment for the CandidateEmployee
+								c.setTraining(comment);
 								
 							}
 						}
@@ -334,10 +320,7 @@ public class Controller {
 			view.emptyList();	
 		}
 	}
-/**
- * a method providing add more or logout functionality
- * @return boolean value - has the user added enough
- */
+
 	public boolean addOrOtherOrExit() {
 		boolean validChoice = false;
 		while (!validChoice) {
@@ -358,20 +341,18 @@ public class Controller {
 		}
 		return false;
 	}
-/**
- * a method allowing for the class director to see previously added requirements and add new ones	
- */
+	
 	public void classDirectorControl() {
 		view.welcome(user);
 		view.welcomeClassDirector();
 		boolean addedEnough=false;
 		while(!addedEnough) {
-			if (!TeachingRequirements.getInstance().getListOfRequirements().isEmpty()) { //if there are requirements already, show them
+			if (!TeachingRequirements.getInstance().getListOfRequirements().isEmpty()) {
 				view.showRequirements();
 			}
 			view.addTeachingRequirements();
 			String input=sc.nextLine();
-			TeachingRequirements.getInstance().addRequirements(input); //effectively, adds this string to the listOfRequirements in TeachingRequirements  
+			TeachingRequirements.getInstance().addRequirements(input);
 			boolean validChoice= false;
 			while(!validChoice) {
 				view.addOrExitClassDirector();

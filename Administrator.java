@@ -1,34 +1,34 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.OptionalDataException;
 import java.io.Serializable;
+import java.util.Set;
 
-/*
- * this class allows the user to have certain capabilities like assign training and create proposals, it uses the singleton pattern since there is only one
- */
 public class Administrator extends Staff implements Serializable{
-	
+	/**
+	 * 
+	 */
+
 	private static final long serialVersionUID = 1L;
 	private static Administrator admin = null;
-	private ArrayList<CandidateEmployee> candidates; //a list of possible candidate employees to use in proposals
-	private HashMap<CandidateEmployee, String> proposals; //hash map of candidates and teaching requirement they are being proposed for
-	private String name,title,password; 
+	private ArrayList<CandidateEmployee> candidates;
+	private HashMap<CandidateEmployee, String> proposals;
+	private String name,title,password;
 	private int ID;
 	private Administrator(){
 		super();
-		name="Brad Pitt"; //we were going for an ocean's eleven thing in the beginning 
-		ID=2; //needed for login
+		name="Brad Pitt";
+		ID=2;
 		title="Administrator";
-		password="iamadministrator"; //password needed for login
+		password="iamadministrator";
 		candidates = new ArrayList<CandidateEmployee>();
 		proposals = new HashMap<CandidateEmployee, String>();
 	}
-/*
- * this method is used for serialisation, needs to be here because this is a singleton	
- */
+	
 	public static synchronized void read(ObjectInputStream in){
 
         try{
@@ -51,13 +51,9 @@ public class Administrator extends Staff implements Serializable{
 		}
 		return admin;
 	}
-	/**
-	 * puts entries in the proposals hash map
-	 * @param candidate
-	 * @param requirement
-	 */
+	
 	public void requestDecision(CandidateEmployee candidate, String requirement) {
-		proposals.put(candidate, requirement); 
+		proposals.put(candidate, requirement);
 	}
 
 	public void addCandidate(CandidateEmployee candidate) {

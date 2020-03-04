@@ -33,15 +33,15 @@ public class View {
 	
 	//System Admin Menu
 	public void welcomeSystemAdmin() {
-		System.out.println("0.Logout, 1.Add Staff, 2.Remove Staff");
+		System.out.println("0.Logout, 1.Add Staff, 2.Remove Staff, 3.Reset Data");
 	}
 	
 	public void listStaff() {
-		System.out.println("Staff ID Staff Name Staff Title");
+		System.out.println("Staff ID / Staff Name / Staff Title");
 	}
 	
 	public void listEmployee() {
-		System.out.println("Emp ID Emp Name Emp Title");
+		System.out.println("Emp ID / Emp Name / Emp Title");
 	}
 	
 	public void nameAdd() {
