@@ -9,13 +9,15 @@ public class Controller {
 	private Staff user;
 	private Scanner sc;
 	private TeachingRequirements teachingRequirements;
-	private boolean wantsToExit;
-
+	private boolean wantsToLogout;
+	private String typeQuit;
 	public Controller(Model model) throws ClassNotFoundException {
 		this.model = model;
 		view = new View(model);
 		sc = new Scanner(System.in);
-		wantsToExit=false;
+		wantsToLogout=false;
+		typeQuit="";
+		
 	}
 
 	public Staff login() {
@@ -47,17 +49,87 @@ public class Controller {
 	}
 
 	public void userDeference() {
+		while(!typeQuit.equals("quit")) {
 		user = login();
+		wantsToLogout=false;
 		if (user instanceof PTTDirector) {
 			pttDirectorControl();
 		} else if (user instanceof ClassDirector) {
 			classDirectorControl();
 		} else if (user instanceof Administrator) {
 			administratorControl();
+		} else if (user instanceof SystemAdmin) {
+			sysAdminControl();
 		}
+		view.quitProgram();
+		typeQuit=sc.nextLine();
+		}
+		
 		model.update();
 		System.out.println("Scanner closed.");
 		sc.close();
+	}
+	
+	public void sysAdminControl()
+	{
+		while(!wantsToLogout){
+		view.listStaff();
+		for (Staff a : model.getStaff()) {
+				System.out.println(a.getID()+" "+a.getName()+" "+a.getTitle());
+			}
+		view.listEmployee();;
+		for(CandidateEmployee c:Administrator.getInstance().getCandidates()) {
+				System.out.println(c.getID()+" "+c.getName()+" "+c.getTitle());
+		}
+		view.welcomeSystemAdmin();
+		int input = sc.nextInt();
+		sc.nextLine();
+		if(input==1) {
+			view.nameAdd();
+			String name=sc.nextLine();
+			view.passAdd();
+			String password=sc.nextLine();
+			int ID;
+			
+			view.chooseType();
+			int input2 = sc.nextInt();
+			sc.nextLine();			
+			if(input2==1)
+				{
+				ID=Administrator.getInstance().getCandidates().size();
+				CandidateEmployee ce=new CandidateEmployee(name,password);
+				Administrator.getInstance().getCandidates().add(ce);
+				}
+			else if(input2==2)
+				{
+				ID=model.getStaff().size();
+				ClassDirector st=new ClassDirector(name,ID,password);
+				model.getCD().add(st);
+				}
+			
+		}else if(input==2) {
+			view.chooseType();
+			int input2 = sc.nextInt();
+			sc.nextLine();
+			if(input2==1)
+				{	
+			view.removeStaff();
+			int input3 = sc.nextInt();
+			sc.nextLine();
+			Administrator.getInstance().getCandidates().remove(input3-1);
+				}
+			if(input2==2)
+				{
+			view.removeStaff();
+			int input3 = sc.nextInt();
+			sc.nextLine();
+			model.getCD().remove(input3);
+				}
+			
+
+		}else {wantsToLogout=true;}
+		
+		}
 	}
 
 	public void pttDirectorControl() {
@@ -132,7 +204,7 @@ public class Controller {
 
 	public void administratorControl() {
 		view.welcome(user);
-		while(!wantsToExit){
+		while(!wantsToLogout){
 			view.initialChoiceAdministrator();
 			boolean validChoice = false;
 	
@@ -141,7 +213,7 @@ public class Controller {
 				sc.nextLine();
 				if (input == 0) {
 					validChoice = true;
-					wantsToExit=true;
+					wantsToLogout=true;
 				} else if (input == 1) {
 					validChoice = true;
 					createProposals();
@@ -251,12 +323,12 @@ public class Controller {
 			int input = sc.nextInt();
 			sc.nextLine();
 			if (input == 0) {
-				wantsToExit=true;
+				wantsToLogout=true;
 				return true;
 			} else if (input == 1) {
 				validChoice = true;
 			} else if (input == 2) {
-				wantsToExit=false;
+				wantsToLogout=false;
 				return true;
 			} else {
 				view.invalidChoice();
