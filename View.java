@@ -28,8 +28,7 @@ public class View {
 	
 	public void welcome(Staff user) {
 		System.out.println("\n===========WELCOME===========");
-		System.out.println("Welcome "+user.getName());
-		
+		System.out.println("Welcome, "+user.getName()+"!");
 	}
 	
 	//System Admin Menu
@@ -101,18 +100,11 @@ public class View {
 	}
 	public void showCandidateEmployees() {
 		System.out.println("These are the Candidate Employees: ");
-		int i=0;
-		StringBuilder skills=new StringBuilder();
-		
-		System.out.println("ID\tName\tSkills");
+		System.out.println("ID\tName\t\t\tSkills");
 		for (CandidateEmployee candidate:Administrator.getInstance().getCandidates()) {
-			for (String skill:candidate.getSkills()) {
-				skills.append(skill+" ");
-			}
-			System.out.println(candidate.getID()+":"+"\t"+candidate.getName()+"\t"+skills.toString());
-			skills.setLength(0);
-			
+			System.out.println(candidate.getID()+":"+"\t"+candidate.getName()+"\t\t"+candidate.getSkills().toString());
 		}
+		System.out.println();
 	}
 	public void chooseRequirement() {
 		System.out.print("Requirement: ");
@@ -129,15 +121,14 @@ public class View {
 		System.out.println("These Candidates have been approved by PTT Director");
 		
 		Set<Entry<CandidateEmployee,String>> traineesKey=Decision.getInstance().getApprovals().entrySet();
-		StringBuilder skills=new StringBuilder();
-		System.out.println("ID\tName\tApproved For\tSkills");
+
+		System.out.println("ID\tName\t\tApproved For\t\tSkills\t\t\t\t\t\t\tTraining Assigned");
 		for (Entry<CandidateEmployee,String> trainee:traineesKey){
 			CandidateEmployee candidate=trainee.getKey();
-			for (String skill:candidate.getSkills()) {
-				skills.append(skill+" ");
-			}
-			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t"+skills.toString());
+
+			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t\t"+candidate.getSkills().toString()+"\t\t\t"+candidate.getTraining());
 		}
+		System.out.println();
 	}
 	public void makeComment() {
 		System.out.print("Training requests for this Candidate: ");
@@ -147,12 +138,13 @@ public class View {
 		System.out.println("Here you can approve Teaching Requests");
 	}
 	public void showProposals() {
-	
+		
 		System.out.println("ID\t Name\t Teaching Request\t");
 		for (Entry<CandidateEmployee, String> proposal:Decision.getInstance().getProposals().entrySet()) {
 			CandidateEmployee candidate=proposal.getKey();
 			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+proposal.getValue());	
 		}
+		System.out.println();
 	}
 	public void addOrExitPTTDirector() {
 		System.out.print("0.Logout, 1.Handle another Request: ");
