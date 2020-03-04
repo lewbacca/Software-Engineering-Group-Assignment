@@ -13,13 +13,7 @@ public class Main {
 		Controller controller = new Controller(model);
 
 //		initialize();	
-//			TeachingRequirements.getInstance().addRequirements("java");
-//			TeachingRequirements.getInstance().addRequirements("lava");
-//			TeachingRequirements.getInstance().addRequirements("hubava");
-//			Administrator.getInstance().requestDecision(model.getEmployee(1),TeachingRequirements.getInstance().getListOfRequirements().get(0));
-//			Administrator.getInstance().requestDecision(model.getEmployee(3),TeachingRequirements.getInstance().getListOfRequirements().get(1));
-//			Administrator.getInstance().requestDecision(model.getEmployee(4),TeachingRequirements.getInstance().getListOfRequirements().get(2));
-//			Decision.getInstance();
+
 		
 		controller.userDeference();		
 	}

@@ -35,20 +35,7 @@ public class Model {
 			//			if(classDirector==null)
 			//			{classDirector=new ArrayList<ClassDirector>();}
 							
-			/*employee1=(CandidateEmployee) ois.readObject();
-			employee2=(CandidateEmployee) ois.readObject();
-			employee3=(CandidateEmployee) ois.readObject();
-			employee4=(CandidateEmployee) ois.readObject();
-			employee5=(CandidateEmployee) ois.readObject();
-			employee6=(CandidateEmployee) ois.readObject();
-			employee7=(CandidateEmployee) ois.readObject();
-			employee8=(CandidateEmployee) ois.readObject();
-			employee9=(CandidateEmployee) ois.readObject();
-			employee10=(CandidateEmployee) ois.readObject();
-			employee11=(CandidateEmployee) ois.readObject();
-			employee12=(CandidateEmployee) ois.readObject();
-			employee13=(CandidateEmployee) ois.readObject();
-			employee14=(CandidateEmployee) ois.readObject();*/
+			
 			/*For test purposes
 			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
 			System.out.println(PTTDirector.getInstance().getTrying().get(0));
@@ -110,14 +97,4 @@ public class Model {
 			System.out.println("Error initializing stream");
 		}
 	}
-	public CandidateEmployee getEmployee(int ID){
-		for (CandidateEmployee a:employees) {
-			if (a.getID()==ID) {
-				return a;
-			}
-		}
-		return null;
-	}
-	
-	
 }

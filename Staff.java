@@ -1,8 +1,5 @@
-import java.io.Serializable;
 
-public class Staff/* implements Serializable*/{
-	//private static final long serialVersionUID = -6642660772967821177L;
-	private static Staff staff = null;
+public class Staff{
 	protected String name;
 	protected int ID;
 	protected String password;
@@ -18,18 +15,5 @@ public class Staff/* implements Serializable*/{
 	  }
 	  public String getTitle() {
 		  return title;
-	  }
-	/*  
-	  protected Object readResolve() {
-		  return getInstance();
-	}
-	  public static Staff getInstance() {
-			if (staff == null) {
-				staff = new Staff();
-			}
-			return staff;
-	  }
-	*/
-	  
-	  
+	  } 
 }

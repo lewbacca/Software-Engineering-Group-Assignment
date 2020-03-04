@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -35,8 +34,10 @@ public class Controller {
 					user = a;
 				}
 			}
-			if (user.getPassword().equals(password)) {
-				passMatch = true;
+			if(user!=null) {
+				if (user.getPassword().equals(password)) {
+					passMatch = true;
+				}
 			}
 			if (idMatch && passMatch) {
 				break;
