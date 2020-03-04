@@ -1,3 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -5,7 +10,8 @@ import java.util.Map.Entry;
 
 
 
-public class Decision {
+public class Decision implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private HashMap<CandidateEmployee, String> approvals;
 	private HashMap<CandidateEmployee, String> proposals;
 	private static Decision decision = null;
@@ -14,6 +20,22 @@ public class Decision {
 		approvals = new HashMap<CandidateEmployee , String>();
 		proposals = Administrator.getInstance().getProposals();
 	}
+	
+	public static synchronized void read(ObjectInputStream in){
+
+        try{
+
+        	decision = (Decision)in.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (OptionalDataException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public static Decision getInstance() {
 		if (decision == null) {
@@ -29,11 +51,16 @@ public class Decision {
 		for(Entry<CandidateEmployee, String> entry: proposals.entrySet()) {
 			if (entry.getKey().isApproved()) {
 				approvals.put(entry.getKey(), entry.getValue());
-				
 			}
 		}
+		for(CandidateEmployee c: approvals.keySet()) {
+			System.out.println(c.toString());
+		}
+		
 	}
-	
+/**
+ * removes proposals that are already in the approvals hashmap form the proposals hashmap
+ */
 	public void updateProposals() {
 		for(Entry<CandidateEmployee, String> entry: approvals.entrySet()) {
 			if (entry.getKey().isApproved()) {
@@ -65,4 +92,8 @@ public class Decision {
 		}
 		
 	}
+	
+//	 public Object readResolve() {
+//	       return getInstance();
+//	}
 }
