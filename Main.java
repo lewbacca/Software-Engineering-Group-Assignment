@@ -31,9 +31,9 @@ public class Main {
 		final PTTDirector pttDirector=PTTDirector.getInstance();
 		final Administrator admin=Administrator.getInstance();
 		////
-		admin.addTrying("Ali");
-		pttDirector.addTrying("Utku");
-		teachingRequirements.addRequirements("Trrryyy");
+		teachingRequirements.addRequirements("Math");
+		teachingRequirements.addRequirements("English");
+		teachingRequirements.addRequirements("CyberSecurity");
 		////
 		ClassDirector classDirector1=new ClassDirector("Matthew McConaughey",3,"iamclassdirector1");
 		ClassDirector classDirector2=new ClassDirector("Morgan Freeman",4,"iamclassdirector2");

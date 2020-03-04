@@ -16,11 +16,7 @@ public class Administrator extends Staff implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private static Administrator admin = null;
 	private ArrayList<CandidateEmployee> candidates;
-	////
-	private ArrayList<String> trying;
-	////
 	private HashMap<CandidateEmployee, String> proposals;
-//	private ArrayList<CandidateEmployee> trainees;
 	private String name,title,password;
 	private int ID;
 	private Administrator(){
@@ -31,23 +27,7 @@ public class Administrator extends Staff implements Serializable{
 		password="iamadministrator";
 		candidates = new ArrayList<CandidateEmployee>();
 		proposals = new HashMap<CandidateEmployee, String>();
-//		trainees = new ArrayList<CandidateEmployee>();
-		////
-		trying  = new ArrayList<String>();
-		////
 	}
-	
-	////
-	public void addTrying(String s)
-	{
-		trying.add(s);
-	}
-	  
-	
-	public ArrayList<String> getTrying() {
-		return trying;
-	}
-	////
 	
 	public static synchronized void read(ObjectInputStream in){
 
@@ -76,21 +56,9 @@ public class Administrator extends Staff implements Serializable{
 		proposals.put(candidate, requirement);
 	}
 
-//	public void checkForTrainees() {
-//		Set<CandidateEmployee> approved = Decision.getInstance().getApprovals().keySet();
-//		for(CandidateEmployee key: approved) {
-//			trainees.add(key);
-//		}
-//		for(CandidateEmployee c: trainees) {
-//			System.out.println(c.toString());
-//		}
-//	}
 	public void addCandidate(CandidateEmployee candidate) {
 		candidates.add(candidate);
 	}
-//	public void addTrainee(CandidateEmployee c) {
-//		trainees.add(c);
-//	}
 
 	public HashMap<CandidateEmployee, String> getProposals() {
 		return proposals;
@@ -100,13 +68,6 @@ public class Administrator extends Staff implements Serializable{
 		return candidates;
 	}
 
-//	public ArrayList<CandidateEmployee> getTrainees() {
-//		return trainees;
-//	}
-	//@Override
-	/* protected Object readResolve() {
-	       return getInstance();
-	}*/
 	public String getName() {
 		return name;
 	}

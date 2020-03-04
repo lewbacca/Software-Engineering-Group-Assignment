@@ -56,7 +56,6 @@ public class Controller {
 			administratorControl();
 		}
 		model.update();
-		System.out.println("Scanner closed.");
 		sc.close();
 	}
 
@@ -64,9 +63,7 @@ public class Controller {
 		Decision.getInstance().updateProposals();
 		if(!Decision.getInstance().getProposals().isEmpty()) {
 			view.welcome(user);
-			
 			boolean approvedEnough=false;
-			
 			while(!approvedEnough) {
 				view.showProposals();
 				Set<CandidateEmployee> candidates = Decision.getInstance().getProposals().keySet();
@@ -94,6 +91,11 @@ public class Controller {
 					sc.nextLine();
 					if(input==0) {
 						validChoice=true;
+						for(CandidateEmployee c: candidates) {
+							if(c.getID()==index) {
+								Administrator.getInstance().addCandidate(c);
+							}
+						}
 						Decision.getInstance().removeProposal(index);
 					}else if(input==1) {
 						validChoice=true;
@@ -135,7 +137,6 @@ public class Controller {
 		while(!wantsToExit){
 			view.initialChoiceAdministrator();
 			boolean validChoice = false;
-	
 			while (!validChoice) {
 				int input = sc.nextInt();
 				sc.nextLine();
@@ -157,10 +158,10 @@ public class Controller {
 		view.welcomeProposalsAdministrator();
 		if (!TeachingRequirements.getInstance().getListOfRequirements().isEmpty()
 				&& !Administrator.getInstance().getCandidates().isEmpty()) {
-			view.showRequirements();
-			view.showCandidateEmployees();
 			boolean addedEnough = false;
 			while (!addedEnough) {
+				view.showRequirements();
+				view.showCandidateEmployees();
 				int input;
 				boolean validChoice = false;
 				String requirement = null;
@@ -192,6 +193,7 @@ public class Controller {
 								candidate=c;
 							}
 						}
+						Administrator.getInstance().getCandidates().remove(candidate);
 					} else {
 						view.invalidChoice();
 					}
@@ -207,7 +209,7 @@ public class Controller {
 	public void assignTraining() {
 		System.out.println(Decision.getInstance().getApprovals().toString());
 		if (!Decision.getInstance().getApprovals().isEmpty()){
-			view.showCandidateTrainees();
+			
 			ArrayList<Integer> ids = new ArrayList<Integer>();
 			Set<CandidateEmployee> trainees=Decision.getInstance().getApprovals().keySet();
 			for(CandidateEmployee c: trainees) {
@@ -215,6 +217,7 @@ public class Controller {
 			}
 			boolean addedEnough = false;
 			while (!addedEnough) {
+				view.showCandidateTrainees();
 				view.chooseCandidate();
 				int input = sc.nextInt();
 				sc.nextLine();
@@ -225,7 +228,6 @@ public class Controller {
 						validChoice = true;
 						view.makeComment();
 						String comment = sc.nextLine();
-						sc.nextLine();
 						for(CandidateEmployee c: trainees) {
 							if(c.getID()==input) {
 								c.setTraining(comment);
@@ -270,6 +272,9 @@ public class Controller {
 		view.welcomeClassDirector();
 		boolean addedEnough=false;
 		while(!addedEnough) {
+			if (!TeachingRequirements.getInstance().getListOfRequirements().isEmpty()) {
+				view.showRequirements();
+			}
 			view.addTeachingRequirements();
 			String input=sc.nextLine();
 			TeachingRequirements.getInstance().addRequirements(input);

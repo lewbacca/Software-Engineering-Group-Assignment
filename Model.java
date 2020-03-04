@@ -11,14 +11,10 @@ public class Model {
 	private PTTDirector pttDirector;
 	private ClassDirector classDirector1,classDirector2,classDirector3,classDirector4;
 	private Administrator admin;
-	private CandidateEmployee employee1,employee2,employee3,employee4,employee5,employee6,employee7,employee8,employee9,employee10,
-	employee11,employee12,employee13,employee14;
-	private TeachingRequirements teachingRequirements;
 	private ArrayList<Staff> staff;
-	private ArrayList<CandidateEmployee> employees;
 	public Model() throws ClassNotFoundException{
 		staff=new ArrayList<Staff>();
-		employees=new ArrayList<CandidateEmployee>();
+	
 		try {
 			FileInputStream is = new FileInputStream("data.ser");
 			ObjectInputStream ois = new ObjectInputStream(is);
@@ -31,32 +27,12 @@ public class Model {
 			classDirector2=(ClassDirector) ois.readObject();
 			classDirector3=(ClassDirector) ois.readObject();
 			classDirector4=(ClassDirector) ois.readObject();
-			/*employee1=(CandidateEmployee) ois.readObject();
-			employee2=(CandidateEmployee) ois.readObject();
-			employee3=(CandidateEmployee) ois.readObject();
-			employee4=(CandidateEmployee) ois.readObject();
-			employee5=(CandidateEmployee) ois.readObject();
-			employee6=(CandidateEmployee) ois.readObject();
-			employee7=(CandidateEmployee) ois.readObject();
-			employee8=(CandidateEmployee) ois.readObject();
-			employee9=(CandidateEmployee) ois.readObject();
-			employee10=(CandidateEmployee) ois.readObject();
-			employee11=(CandidateEmployee) ois.readObject();
-			employee12=(CandidateEmployee) ois.readObject();
-			employee13=(CandidateEmployee) ois.readObject();
-			employee14=(CandidateEmployee) ois.readObject();*/
-			/*For test purposes
-			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
-			System.out.println(PTTDirector.getInstance().getTrying().get(0));
-			System.out.println(Administrator.getInstance().getTrying().get(0));
-			System.out.println(Administrator.getInstance().getCandidates().get(0).getName());
-			*/
 			ois.close();
+			is.close();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		addStaff();
-		//addEmployees();
 	}
 	public void addStaff() {
 		staff.add(PTTDirector.getInstance());
@@ -106,15 +82,5 @@ public class Model {
 		} catch (IOException e) {
 			System.out.println("Error initializing stream");
 		}
-	}
-	public CandidateEmployee getEmployee(int ID){
-		for (CandidateEmployee a:employees) {
-			if (a.getID()==ID) {
-				return a;
-			}
-		}
-		return null;
-	}
-	
-	
+	}	
 }

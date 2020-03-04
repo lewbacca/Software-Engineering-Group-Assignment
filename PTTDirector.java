@@ -14,31 +14,12 @@ public class PTTDirector extends Staff implements Serializable{
 	private String title;
 	private String password;
 	private static PTTDirector pttDirector = null;
-	////
-	private ArrayList<String> trying;
-	////
-	
 	private PTTDirector(){
 		name="George Clooney";
 		ID=1;
 		title="PTT Director";
 		password="iampttdirector";
-		////
-		trying  = new ArrayList<String>();
-		////
 	}
-	
-	////
-	public void addTrying(String s)
-	{
-		trying.add(s);
-	}
-	  
-	
-	public ArrayList<String> getTrying() {
-		return trying;
-	}
-	////
 	public static synchronized void read(ObjectInputStream in){
 
         try{
@@ -74,9 +55,4 @@ public class PTTDirector extends Staff implements Serializable{
 	public String getPassword() {
 		return password;
 	}
-	//@Override
-	 /*public Object readResolve() {
-	       return getInstance();
-	}*/
-	
 }

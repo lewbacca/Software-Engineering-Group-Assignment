@@ -92,8 +92,4 @@ public class Decision implements Serializable{
 		}
 		
 	}
-	
-//	 public Object readResolve() {
-//	       return getInstance();
-//	}
 }

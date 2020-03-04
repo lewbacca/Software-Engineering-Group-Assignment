@@ -24,7 +24,7 @@ public class View {
 	
 	public void welcome(Staff user) {
 		System.out.println("\n===========WELCOME===========");
-		System.out.println("Welcome "+user.getName());
+		System.out.println("Welcome, "+user.getName()+"!");
 	}
 	
 	//System Admin Menu
@@ -44,7 +44,7 @@ public class View {
 	
 	//Class Director Menu
 	public void welcomeClassDirector() {
-		System.out.println("Here you can add Teaching Requirements");
+		System.out.println("Here you can add Teaching Requirements\n");
 	}
 	public void addTeachingRequirements() {
 		System.out.print("Teaching Requirement: ");
@@ -53,7 +53,7 @@ public class View {
 		System.out.print("0.EXIT, 1.Add another Requirement: ");
 	}
 	public void invalidChoice() {
-		System.out.println("INVALID CHOICE! Make a suiteble choice");
+		System.out.println("INVALID CHOICE! Make a suiteble choice, please!");
 	}
 	
 	//Administrator menu
@@ -64,7 +64,7 @@ public class View {
 		System.out.println("Here you can create Proposals for approval\n");
 		}
 	public void welcomeTrainingAdministrator() {
-		System.out.println("Here you can assign the Training for candidates\n");
+		System.out.println("Here you can assign the Training for candidates.\n");
 	}
 	public void showRequirements() {
 		System.out.println("These are the pending Teaching Requirements:");
@@ -73,21 +73,15 @@ public class View {
 				System.out.println(i+": "+requirement);
 				i++;
 			}
+			System.out.println();
 	}
 	public void showCandidateEmployees() {
 		System.out.println("These are the Candidate Employees: ");
-		int i=0;
-		StringBuilder skills=new StringBuilder();
-		
-		System.out.println("ID\tName\tSkills");
+		System.out.println("ID\tName\t\t\tSkills");
 		for (CandidateEmployee candidate:Administrator.getInstance().getCandidates()) {
-			for (String skill:candidate.getSkills()) {
-				skills.append(skill+" ");
-			}
-			System.out.println(candidate.getID()+":"+"\t"+candidate.getName()+"\t"+skills.toString());
-			skills.setLength(0);
-			
+			System.out.println(candidate.getID()+":"+"\t"+candidate.getName()+"\t\t"+candidate.getSkills().toString());
 		}
+		System.out.println();
 	}
 	public void chooseRequirement() {
 		System.out.print("Requirement: ");
@@ -104,15 +98,14 @@ public class View {
 		System.out.println("These Candidates have been approved by PTT Director");
 		
 		Set<Entry<CandidateEmployee,String>> traineesKey=Decision.getInstance().getApprovals().entrySet();
-		StringBuilder skills=new StringBuilder();
-		System.out.println("ID\tName\tApproved For\tSkills");
+
+		System.out.println("ID\tName\t\tApproved For\t\tSkills\t\t\t\t\t\t\tTraining Assigned");
 		for (Entry<CandidateEmployee,String> trainee:traineesKey){
 			CandidateEmployee candidate=trainee.getKey();
-			for (String skill:candidate.getSkills()) {
-				skills.append(skill+" ");
-			}
-			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t"+skills.toString());
+
+			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+trainee.getValue()+"\t\t"+candidate.getSkills().toString()+"\t\t\t"+candidate.getTraining());
 		}
+		System.out.println();
 	}
 	public void makeComment() {
 		System.out.print("Training requests for this Candidate: ");
@@ -128,6 +121,7 @@ public class View {
 			CandidateEmployee candidate=proposal.getKey();
 			System.out.println(candidate.getID()+"\t"+candidate.getName()+"\t"+proposal.getValue());	
 		}
+		System.out.println();
 	}
 	public void addOrExitPTTDirector() {
 		System.out.print("0.EXIT, 1.Handle another Request: ");
