@@ -9,12 +9,16 @@ import java.util.ArrayList;
 
 public class Model {
 	private PTTDirector pttDirector;
-	private ClassDirector classDirector1,classDirector2,classDirector3,classDirector4;
+//	private ArrayList<ClassDirector> classDirector;
 	private Administrator admin;
+	private ClassDirector classDirector1,classDirector2,classDirector3,classDirector4;
+//	private TeachingRequirements teachingRequirements;
 	private ArrayList<Staff> staff;
+	private ArrayList<CandidateEmployee> employees;
 	public Model() throws ClassNotFoundException{
 		staff=new ArrayList<Staff>();
-	
+//		classDirector=new ArrayList<ClassDirector>();
+//		employees=new ArrayList<CandidateEmployee>();
 		try {
 			FileInputStream is = new FileInputStream("data.ser");
 			ObjectInputStream ois = new ObjectInputStream(is);
@@ -27,30 +31,50 @@ public class Model {
 			classDirector2=(ClassDirector) ois.readObject();
 			classDirector3=(ClassDirector) ois.readObject();
 			classDirector4=(ClassDirector) ois.readObject();
+			//classDirector=(ArrayList<ClassDirector>) ois.readObject();
+			//			if(classDirector==null)
+			//			{classDirector=new ArrayList<ClassDirector>();}
+							
+			/*employee1=(CandidateEmployee) ois.readObject();
+			employee2=(CandidateEmployee) ois.readObject();
+			employee3=(CandidateEmployee) ois.readObject();
+			employee4=(CandidateEmployee) ois.readObject();
+			employee5=(CandidateEmployee) ois.readObject();
+			employee6=(CandidateEmployee) ois.readObject();
+			employee7=(CandidateEmployee) ois.readObject();
+			employee8=(CandidateEmployee) ois.readObject();
+			employee9=(CandidateEmployee) ois.readObject();
+			employee10=(CandidateEmployee) ois.readObject();
+			employee11=(CandidateEmployee) ois.readObject();
+			employee12=(CandidateEmployee) ois.readObject();
+			employee13=(CandidateEmployee) ois.readObject();
+			employee14=(CandidateEmployee) ois.readObject();*/
+			/*For test purposes
+			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
+			System.out.println(PTTDirector.getInstance().getTrying().get(0));
+			System.out.println(Administrator.getInstance().getTrying().get(0));
+			System.out.println(Administrator.getInstance().getCandidates().get(0).getName());
+			*/
 			ois.close();
-			is.close();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-		addStaff();
+		initializeStaff();
+		//addEmployees();
 	}
-	public void addStaff() {
+	public void initializeStaff() {
+//		staff.add(SystemAdmin.getInstance());
 		staff.add(PTTDirector.getInstance());
 		staff.add(Administrator.getInstance());
 		staff.add(classDirector1);	
 		staff.add(classDirector2);
 		staff.add(classDirector3);
-		staff.add(classDirector4);
+		staff.add(classDirector4);	
+
 	}
 
 	public PTTDirector getPttDirector() {
 		return pttDirector;
-	}
-	public ClassDirector getClassDirector1() {
-		return classDirector1;
-	}
-	public ClassDirector getClassDirector2() {
-		return classDirector2;
 	}
 	public Administrator getAdmin() {
 		return admin;
@@ -58,6 +82,9 @@ public class Model {
 	public ArrayList<Staff> getStaff() {
 		return staff;
 	}
+//	public ArrayList<ClassDirector> getCD() {
+//		return classDirector; 
+//	}
 	public void initialize() {
 		
 	}
@@ -82,5 +109,15 @@ public class Model {
 		} catch (IOException e) {
 			System.out.println("Error initializing stream");
 		}
-	}	
+	}
+	public CandidateEmployee getEmployee(int ID){
+		for (CandidateEmployee a:employees) {
+			if (a.getID()==ID) {
+				return a;
+			}
+		}
+		return null;
+	}
+	
+	
 }

@@ -31,9 +31,9 @@ public class Main {
 		final PTTDirector pttDirector=PTTDirector.getInstance();
 		final Administrator admin=Administrator.getInstance();
 		////
-		teachingRequirements.addRequirements("Math");
-		teachingRequirements.addRequirements("English");
-		teachingRequirements.addRequirements("CyberSecurity");
+//		admin.addTrying("Ali");
+//		pttDirector.addTrying("Utku");
+//		teachingRequirements.addRequirements("Trrryyy");
 		////
 		ClassDirector classDirector1=new ClassDirector("Matthew McConaughey",3,"iamclassdirector1");
 		ClassDirector classDirector2=new ClassDirector("Morgan Freeman",4,"iamclassdirector2");
@@ -106,21 +106,6 @@ public class Main {
 			o.writeObject(classDirector2);
 			o.writeObject(classDirector3);
 			o.writeObject(classDirector4);
-			/*o.writeObject(employee1);
-			o.writeObject(employee2);
-			o.writeObject(employee3);
-			o.writeObject(employee4);
-			o.writeObject(employee5);
-			o.writeObject(employee6);
-			o.writeObject(employee7);
-			o.writeObject(employee8);
-			o.writeObject(employee9);
-			o.writeObject(employee10);
-			o.writeObject(employee11);
-			o.writeObject(employee12);
-			o.writeObject(employee13);
-			o.writeObject(employee14);*/
-			
 			o.flush();
 			o.close();
 			f.close();
