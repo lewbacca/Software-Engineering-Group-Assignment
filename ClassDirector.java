@@ -2,9 +2,9 @@ import java.io.Serializable;
 public class ClassDirector extends Staff implements Serializable{
 
 	/**
-	 * 
+	 * objects of this class allow the user to log in, see the list of requirements and add new ones 
 	 */
-	//private static final long serialVersionUID = 1L;
+
 	private String name,title,password;
 	protected int ID;
 	public ClassDirector(String name, int ID, String password) {
@@ -16,7 +16,7 @@ public class ClassDirector extends Staff implements Serializable{
 	}
 	
 	public void addRequirement(String requirement) {
-		TeachingRequirements.getInstance().addRequirements(requirement);
+		TeachingRequirements.getInstance().addRequirements(requirement); 
 	}
 	public String getName() {
 		return name;

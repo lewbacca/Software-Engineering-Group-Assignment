@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 public class PTTDirector extends Staff implements Serializable{
 	/**
-	 * 
+	 * a singleton class that allows the user to use PTT director functionality
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;

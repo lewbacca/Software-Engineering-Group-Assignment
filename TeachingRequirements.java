@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TeachingRequirements implements Serializable {
 	/**
-	 * 
+	 * a singleton class that holds a list of teaching requirements (Strings), that are added by the class director and used by the administrator
 	 */
 	private static final long serialVersionUID = 1L;
 	private static TeachingRequirements teachingRequirements = null;
@@ -16,7 +16,9 @@ public class TeachingRequirements implements Serializable {
 	private TeachingRequirements() {
 		listOfRequirements = new ArrayList<String>();
 	}
-	
+/*
+ * needed for the serialisation of singletons
+ */
 	public static synchronized void read(ObjectInputStream in){
 
         try{

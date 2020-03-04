@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
+/*
+ * this is the model part of the MVC architecture we have implemented
+ */
 public class Model {
 	private PTTDirector pttDirector;
 //	private ArrayList<ClassDirector> classDirector;
@@ -79,7 +81,6 @@ public class Model {
 		try {
 			FileOutputStream f = new FileOutputStream(new File("data.ser"));
 			ObjectOutputStream o = new ObjectOutputStream(f);
-			System.out.println(TeachingRequirements.getInstance().getListOfRequirements());
 			o.writeObject(TeachingRequirements.getInstance());
 			o.writeObject(PTTDirector.getInstance());
 			o.writeObject(Administrator.getInstance());
